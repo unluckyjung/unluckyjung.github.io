@@ -238,7 +238,8 @@ social_icons:
 
 # Sidebar Avatar
 # in directory: /assets/images/avatar.gif
-#avatar:
+# avatar:
+avatar: /assets/images/Grand.jpg
 
 
 # Table Of Contents in the Sidebar
