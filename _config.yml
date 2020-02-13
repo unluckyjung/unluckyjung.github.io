@@ -120,6 +120,8 @@ menu:
   home: /
   categories: /categories/
   #about: /about/
+  about: https://unluckyjung.github.io/resume/
+
   archives: /archives/
   tags: /tags/
   #sitemap: /sitemap.xml
