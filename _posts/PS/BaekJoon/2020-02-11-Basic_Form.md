@@ -8,6 +8,7 @@ tags:
 - baekjoon
 - PS
 - Problem Solve
+- Math
 ---
 
 <!-- 문제 번호 -->
