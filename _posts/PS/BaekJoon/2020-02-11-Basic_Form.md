@@ -13,7 +13,7 @@ tags:
 
 <!-- 문제 번호 -->
 
-# Problem : [A+B](boj.kr/1000)
+# Problem : [A+B](https://www.acmicpc.net/problem/1000)
 ## 유형 : 수학
 
 ---
