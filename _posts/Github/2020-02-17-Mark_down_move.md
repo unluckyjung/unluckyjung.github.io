@@ -24,7 +24,7 @@ photos: https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRDt_wxTU_J1pF6np
 4. Head(제목)에 특수문자가 있어도 링크는 특수문자를 제거.
 
 
-### 방식은 일반적인 링크를 거는 밥법과 유사 합니다.
+### 방식은 일반적인 링크를 거는 방법과 유사 합니다.
 ##### 링크앞에 Head(제목)을 나타내는 `#`이 추가 되었을 뿐 완전히 동일합니다.
 
 `
