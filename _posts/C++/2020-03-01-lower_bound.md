@@ -37,7 +37,7 @@ lower_bound(vec2.begin(), vec2.end(), num, greater<int>());
 
 >
 `lower_bound` = `num` 보다 크지 않은 첫번째 원소.  
-`upper_bound` = `num` 보다 큰 첫번째 원소.  
+`upper_bound` = `num` 보다 작은 첫번째 원소.  
 
 **둘다 찾지 못한다면, end() 리턴**
 
