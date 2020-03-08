@@ -10,10 +10,8 @@ tags:
 - upper_bound
 ---
 
-<!-- 하고 싶은말 -->
-
 ## lower_bound, upper_bound
-**오름차순 정렬이 되어 있어야 한다**
+> 오름 or 내림차순 정렬이 되어 있어야 한다
 
 ```c++
 lower_bound(vec.begin(), vec.end(), num);

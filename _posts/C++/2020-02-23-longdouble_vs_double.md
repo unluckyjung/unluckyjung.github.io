@@ -9,12 +9,9 @@ tags:
 - double
 ---
 
-<!-- 하고 싶은말 -->
-
-## long double vs double
-> 
-오차 범위 때문에, double로는 WA가 나오나, long double로는 AC가 나오는 [문제](https://www.acmicpc.net/problem/1575)를 우연찮게 보았다.  
-사실 이전까지 long double 이라는 자료형은 double 형과 같은 크기라고 **잘못!** 알고 있었다.
+## long double vs double 
+> 오차 범위 때문에, double로는 WA가 나오나, long double로는 AC가 나오는 [문제](https://www.acmicpc.net/problem/1575)를 우연찮게 보았다.  
+> 사실 이전까지 long double 이라는 자료형은 double 형과 같은 크기라고 **잘못!** 알고 있었다.
 
 ---
 

@@ -11,10 +11,8 @@ tags:
 - Math
 ---
 
-<!-- 문제 번호 -->
-
-# Problem : [A+B](https://www.acmicpc.net/problem/1000)
-## 유형 : 수학
+## Problem : [A+B](https://www.acmicpc.net/problem/1000)
+> 유형 : 수학
 
 ---
 

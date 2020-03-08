@@ -10,10 +10,8 @@ tags:
 photos: https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRDt_wxTU_J1pF6npSHAnjn2FPU9l4C-iPt1JN2nZFdYTu17muv
 ---
 
-<!-- 하고 싶은말 -->
-
-# 마크 다운내 문서 이동을 하는법을 기록 합니다.
-### 만족스럽게 정리된글이 없길래 작성 해봅니다.
+## 마크 다운내 문서 이동을 하는법을 기록 합니다.
+* 만족스럽게 정리된글이 없길래 직접 작성 해봅니다.
 
 ---
 
