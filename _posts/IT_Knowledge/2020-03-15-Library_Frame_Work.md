@@ -1,7 +1,7 @@
 ---
 title: Library & Frame Work
 date: 2020-03-15-15:40
-catagories: 
+categories: 
 - IT_Knowledge
 
 tags:
