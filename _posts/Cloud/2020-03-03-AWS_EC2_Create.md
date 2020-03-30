@@ -87,7 +87,7 @@ photos:
 * `pem file`의 권한을 `chmod 400` 으로 바꿔 주었다. 
 * `ssh` 접속 방법은 다음과 같다.
 
-> ssh -i `your pem files name` @ `your IPv4 adderss`
+> ssh -i `your pem files name` **ec2-user**@`your IPv4 adderss`
 
 ![EC2](/post_images/aws_9.PNG)
 
