@@ -1,5 +1,5 @@
 ﻿---
-title: 카카오 2019 겨울 인턴십 문제풀이
+title: 카카오 2019 겨울 인턴십 코딩 테스트 문제풀이
 date: 2020-04-02-22:00
 categories:
 - PS
@@ -26,7 +26,7 @@ tags:
 ### 글을 작성해도 될까?
 > 공개되기 전까지는 당연히 불가능 했다.
 
-* [다른 블로그분](https://blog.niceb5y.net/2019-kakao-developer-winter-internship-solution/) 을 보니 11월에 시험에 응시하신 후 바로 글을 작성하셨다가, `저작권 침해`라는 이유로 글을 내려달라는 권고를 받으셨었다.
+* [다른 블로거분](https://blog.niceb5y.net/2019-kakao-developer-winter-internship-solution/) 을 보니 11월에 시험에 응시하신 후 바로 글을 작성하셨다가, `저작권 침해`라는 이유로 글을 내려달라는 권고를 받으셨었다.
 * 하지만 이번에는 프로그래머스에서 공개적으로 오픈한 문제이다
 * 혹시나 몰라서 찾아보았고 [링크](https://programmers.zendesk.com/hc/ko/articles/360034546572-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4%EC%9D%98-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4%EB%A5%BC-%EA%B0%9C%EC%9D%B8-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B9%83%ED%97%99-%EA%B8%B0%ED%83%80-%EC%82%AC%EC%9D%B4%ED%8A%B8%EC%97%90-%EC%98%AC%EB%A0%A4%EB%8F%84-%EB%90%98%EB%82%98%EC%9A%94-) 를 보니 공개된 문제는 게시해도 되는것 같다. 
 	* **문제가 될시, `ybook2012@gmail.com` 이쪽으로 연락주시면 바로 게시글을 내리도록 하겠습니다.**
