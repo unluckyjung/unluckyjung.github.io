@@ -400,4 +400,4 @@ int solution(vector<int> stones, int k) {
 ### 피드백
 
 * 완전탐색의 경우, 정말 모든 경우를 다 확인했는지 확인해보자 
-* `rebegin()`을 `rend()`로 써놓는 실수를 했었다.
+* `rbegin()`을 `rend()`로 써놓는 실수를 했었다.
