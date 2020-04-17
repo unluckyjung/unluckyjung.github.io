@@ -8,7 +8,8 @@ tags:
 - 태그 1
 - 태그 2
 
-photos: 주소
+photos: 
+- 주소
 
 ---
 
