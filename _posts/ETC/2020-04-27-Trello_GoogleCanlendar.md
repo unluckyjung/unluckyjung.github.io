@@ -25,7 +25,7 @@ photos:
 <br>
 
 * Power Ups에서 해당 Trello의 Board의 캘린더 URL을 따옵니다.
-* 자신의 URL뒤에 `/power-ups` 만 추가해주면 바로 Powr ups 페이지에 접근이 가능합니다.
+* 자신의 URL뒤에 `/power-ups` 만 추가해주면 바로 Power ups 페이지에 접근이 가능합니다.
     * EX ) `https://trello.com/b/AAAAAAAA/BBBBBBBBB/power-ups`
 
 ---
