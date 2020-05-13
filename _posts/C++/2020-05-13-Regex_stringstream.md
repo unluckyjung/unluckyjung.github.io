@@ -351,7 +351,8 @@ using namespace std;
 
 void Get_Number_streamstring(string input_str) {
 	stringstream ss(input_str);
-	cout << "\nstramstring를 이용한 정규식으로 숫자문자를 파싱하기\n";
+	cout << "\nstramstring를 이용한 숫자문자를 파싱하기\n";
+	//사실 문자열 하나로 전부 다 뽑을 수 있지만 연습하는 의미에서 num 따로 string 따로 나누었습니다.
 
 	int num;
 	string str;
@@ -359,20 +360,20 @@ void Get_Number_streamstring(string input_str) {
 		cout << num;
 		ss >> str;
 		cout << str;
-		cout << " ";
+		cout << " / ";
 	}
 }
 
-void Get_Number_regex(string input_str){
+void Get_Number_regex(string input_str) {
 
 	cout << "\nregex를 이용한 정규식으로 숫자문자를 파싱하기\n";
 	regex reg("-?[0-9][A-z]+");
 
 	const sregex_iterator end;
 	sregex_iterator start(input_str.begin(), input_str.end(), reg);
-	
+
 	while (start != end) {
-		cout << start->str() << " ";
+		cout << start->str() << " / ";
 		start++;
 	}
 	cout << "\n";
@@ -380,7 +381,7 @@ void Get_Number_regex(string input_str){
 
 int main() {
 	string str1 = "1A 2BB 3CCC 4DDDD";
-	
+
 	cout << "input_str : " << str1 << "\n";
 
 
@@ -399,12 +400,12 @@ int main() {
 input_str : 1A 2BB 3CCC 4DDDD
 
 regex를 이용한 정규식으로 숫자문자를 파싱하기
-1A 2BB 3CCC 4DDDD
+1A / 2BB / 3CCC / 4DDDD /
 
 ====================
 
-stramstring를 이용한 정규식으로 숫자문자를 파싱하기
-1A 2BB 3CCC 4DDDD
+stramstring를 이용한 숫자문자를 파싱하기
+1A / 2BB / 3CCC / 4DDDD /
 ```
 
 ---
