@@ -67,7 +67,7 @@ photos:
 ## 여담
 > 자꾸 지혼자서 마크다운 문법이 정렬되었습니다.
 
-[!imgaes](/post_images/Mark_down5.PNG)
+![imgaes](/post_images/Mark_down5.PNG)
 
 * 게시물 미리보기를 위해서 자동 정렬을 하면 안되었습니다.
 * 이유를 찾아보니 오늘 다운 받은 `prettier` 확장 프로그램 때문이었습니다.
