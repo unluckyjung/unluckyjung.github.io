@@ -19,15 +19,15 @@ tags:
 
 ---
 
-## :x: 일반적으로 생각하는 방법 
-> `multiset.erase(val)`
+## 일반적으로 생각하는 방법 
+> :x: `multiset.erase(val)`
 
 * 이 방법은 `val`에 일치하는 `모든 노드`를 삭제 하게 됩니다.
 * 이 경우 의도하지 않은 결과를 낳게 됩니다.
 
 
-## :heavy_check_mark: 실제로 해야하는 방법 
-> `iterator` : 반복자를 이용합니다.
+## 실제로 해야하는 방법 
+> :heavy_check_mark: `iterator` : 반복자를 이용합니다.
 
 * 원하는 원소가 등장하는 `iterator`를 찾습니다.
 	* `md.find(val)`
