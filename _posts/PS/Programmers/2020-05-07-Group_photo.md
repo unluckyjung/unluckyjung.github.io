@@ -5,7 +5,7 @@ categories:
 - PS
 
 tags:
-- baekjoon
+- Programmers
 - PS
 - Problem Solve
 - 완전탐색
