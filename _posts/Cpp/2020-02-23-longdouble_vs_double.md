@@ -1,10 +1,10 @@
 ﻿---
 title: long double 과 double 의 차이.
 categories:
-- C++
+- Cpp
 
 tags:
-- C++
+- Cpp
 - gcc, vc++
 - double
 ---

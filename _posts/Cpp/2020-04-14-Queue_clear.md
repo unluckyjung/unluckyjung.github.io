@@ -2,10 +2,10 @@
 title : C++ 큐 초기화 하기
 date : 2020-04-14-17:50
 categories : 
-- C++
+- Cpp
 
 tags : 
-- C++
+- Cpp
 - queue
 
 ---

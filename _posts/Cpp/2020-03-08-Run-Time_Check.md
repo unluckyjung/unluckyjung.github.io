@@ -1,10 +1,10 @@
 ---
 title: Run-Time Check Failure `#2 - Stack around the variable` 해결
 categories: 
-- C++
+- Cpp
 
 tags:
-- C++
+- Cpp
 - VS
 ---
 

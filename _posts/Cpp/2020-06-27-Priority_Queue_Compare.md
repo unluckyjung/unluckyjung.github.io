@@ -2,10 +2,10 @@
 title: 구조체 priority queue 를 사용하기
 date: 2020-06-27-23:00
 categories:
-- C++
+- Cpp
 
 tags:
-- C++
+- Cpp
 - priority queue
 - struct
 

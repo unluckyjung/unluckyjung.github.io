@@ -1,10 +1,10 @@
 ﻿---
 title: lower_bound , upper_bound 사용법
 categories:
-- C++
+- Cpp
 
 tags:
-- C++
+- Cpp
 - STL
 - lower_bound
 - upper_bound

@@ -2,10 +2,10 @@
 title: C++ vector resize 시 주의할 점
 date: 2020-06-16-18:57
 categories:
-- C++
+- Cpp
 
 tags:
-- C++
+- Cpp
 - vector
 - resize
 

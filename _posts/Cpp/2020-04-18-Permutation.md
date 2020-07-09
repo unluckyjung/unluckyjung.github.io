@@ -2,10 +2,10 @@
 title: Permutation 사용시 주의할점.
 date: 2020-04-18-23:00
 categories:
-- C++
+- Cpp
 
 tags:
-- C++
+- Cpp
 - permutation
 
 # photos: 

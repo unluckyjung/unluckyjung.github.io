@@ -1,7 +1,7 @@
 ---
 title: pair <data type, data type> 의 크기는 몇일까?
 categories: 
-- C++
+- Cpp
 
 tags:
 - C++

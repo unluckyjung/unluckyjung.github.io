@@ -1,10 +1,10 @@
 ---
 title: Vector vs Deque
 categories: 
-- C++
+- Cpp
 
 tags:
-- C++
+- Cpp
 - STL
 - vector
 - deque
