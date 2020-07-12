@@ -36,16 +36,11 @@ tags:
 ### 예시
 
 ```c++
-#include <bits/stdc++.h>
-#include<unordered_set>
+#include <iostream>
 using namespace std;
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    //freopen("input.txt", "r", stdin);
-    cin.tie(NULL);
-
     long double ld = 3.14L;
     double d = 3.14;
 
@@ -58,16 +53,16 @@ int main()
 
 * output in `g++ (mingw)`
 
-```c++
- long double size : 16
- long double size : 8
+```console
+long double size : 16
+     double size : 8
 ```
 
 * output in `vc++ (visual studio)`
 
-```c
- long double size : 8
- long double size : 8
+```console
+long double size : 8
+     double size : 8
 ```
 
 ---
