@@ -10,7 +10,7 @@ tags:
 - DB
 
 photos: 
-- 주소
+- /post_images/mysql.png
 
 ---
 
