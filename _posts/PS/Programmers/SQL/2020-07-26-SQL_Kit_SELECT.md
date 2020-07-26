@@ -19,7 +19,7 @@ tags:
 
 ## [모든 레코드 조회하기](https://programmers.co.kr/learn/courses/30/lessons/59034)
 
-* `*` 에스터리크를 테이블 정보를 모두 조회합니다.   `SELECT`
+* `*` 에스터리크를 이용하여 테이블 정보를 모두 조회합니다.   `SELECT`
 * `아이디` 순으로 정렬합니다.   `ORDER BY`
 
 ```sql
