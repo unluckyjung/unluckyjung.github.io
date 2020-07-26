@@ -6,7 +6,6 @@ categories:
 
 tags:
 - Vscode
-- 태그 2
 
 photos:
 - /post_images/Live_server0.png
