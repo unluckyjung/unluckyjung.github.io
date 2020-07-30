@@ -50,7 +50,6 @@ photos:
 * 저의 경우, `CPU`가 `8코어`에  `RAM`이 `32G` 이므로 넉넉히 잡았습니다.
     * `CPU 4` , `RAM 8` 
 
-![이미지](https://user-images.githubusercontent.com/43930419/88628907-22793380-d09e-11ea-9f2f-15d277e9affb.png)
 ![이미지](https://user-images.githubusercontent.com/43930419/88628910-2311ca00-d09e-11ea-9d61-f229862ba95b.png)
 
 * [위에서 설치한](#이미지-파일-다운로드) 이미지 파일을 불러옵니다.
@@ -65,7 +64,7 @@ photos:
 
 * `???`
 * 원인을 찾아보니, `가상화 옵션`이 켜져있어서 해당 현상이 발생한다고 합니다.
-* [링크](https://unluckyjung.github.io/Linux/2020/07/30/Ubuntu_error)를 참고하여 해결합니다.
+* [링크](https://unluckyjung.github.io/linux/2020/07/30/Ubuntu_error)를 참고하여 해결합니다.
 
 ---
 
@@ -108,12 +107,12 @@ photos:
 
 ![이미지](https://user-images.githubusercontent.com/43930419/88628944-2907ab00-d09e-11ea-96ef-b9b4735cb487.png)
 
-* [링크](https://unluckyjung.github.io/Linux/2020/07/30/Ubuntu_display)를 참고해 해상도를 변경해 봅니다.
+* [링크](https://unluckyjung.github.io/linux/2020/07/30/Ubuntu_display)를 참고해 해상도를 변경해 봅니다.
 
 ---
 
 ## 연관 링크
 
-* [우분투 설치](https://unluckyjung.github.io/Linux/2020/07/30/Ubuntu_install)
-* [가상화 옵션으로 인한 설치 에러 해결](https://unluckyjung.github.io/Linux/2020/07/30/Ubuntu_error)
-* [해상도 변경](https://unluckyjung.github.io/Linux/2020/07/30/Ubuntu_display)
+* [우분투 설치](https://unluckyjung.github.io/linux/2020/07/30/Ubuntu_install)
+* [가상화 옵션으로 인한 설치 에러 해결](https://unluckyjung.github.io/linux/2020/07/30/Ubuntu_error)
+* [해상도 변경](https://unluckyjung.github.io/linux/2020/07/30/Ubuntu_display)
