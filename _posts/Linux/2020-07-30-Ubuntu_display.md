@@ -48,3 +48,11 @@ photos:
 ![이미지](https://user-images.githubusercontent.com/43930419/88628953-2ad16e80-d09e-11ea-87a1-375272d5826b.png)
 
 * 해상도를 변경 합니다.
+
+---
+
+## 연관 링크
+
+* [우분투 설치](https://unluckyjung.github.io/linux/2020/07/30/Ubuntu_install)
+* [가상화 옵션으로 인한 설치 에러 해결](https://unluckyjung.github.io/linux/2020/07/30/Ubuntu_error)
+* [해상도 변경](https://unluckyjung.github.io/linux/2020/07/30/Ubuntu_display)
