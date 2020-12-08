@@ -1,15 +1,12 @@
 ---
 title: 구글 자바 컨벤션 정리
-date: 2020-01-01-00:00
+date: 2020-12-09-00:07
 categories:
 - DOCS
 
 tags:
 - Java
 - Convention
-
-photos: 
-- 주소
 
 ---
 
