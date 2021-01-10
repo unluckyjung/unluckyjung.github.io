@@ -1,5 +1,5 @@
 ---
-title: [JAVA] String equals시 주의할점
+title: JAVA String equals시 주의할점
 date: 2021-01-10-22:00
 categories:
 - Java
@@ -7,7 +7,6 @@ categories:
 tags:
 - Java
 - String
-
 
 ---
 
