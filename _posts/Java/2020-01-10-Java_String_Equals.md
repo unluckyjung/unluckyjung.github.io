@@ -58,9 +58,35 @@ Exception in thread "main" java.lang.NullPointerException
 
 ---
 
+## 또 다른 방법 Object equals 이용.
+> `Objects.equals("문자열1", "문자열2)`
+
+```java
+    public static void equalsTest3(String name) {
+        if (Objects.equals(name, "JYS")) {
+            System.out.println("Hi YoonSung");
+        } else {
+            System.out.println("Who are you?");
+        }
+    }
+```
+
+* 다음과 같은 경우에 name에 **null**이 들어가도 null 참조 예외가 발생하지 않는다.
+
+```java
+    public static boolean equals(Object a, Object b) {
+        return (a == b) || (a != null && a.equals(b));
+    }
+```
+* Objcets equals의 구현을 보면, null 체크를 해주기 떄문!
+
+---
+
 ## 전체 소스
 
 ```java
+import java.util.Objects;
+
 class Practice {
     public static void equalsTest1(String name) {
         try {
@@ -82,6 +108,13 @@ class Practice {
         }
     }
 
+    public static void equalsTest3(String name) {
+        if (Objects.equals(name, "JYS")) {
+            System.out.println("Hi YoonSung");
+        } else {
+            System.out.println("Who are you?");
+        }
+    }
     public static void main(String[] args) {
         String name = "JYS";
         String nullName = null;
@@ -91,6 +124,9 @@ class Practice {
 
         equalsTest2(name);
         equalsTest2(nullName);
+
+        equalsTest3(name);
+        equalsTest3(nullName);
     }
 }
 ```
@@ -98,6 +134,8 @@ class Practice {
 ```console
 Hi YoonSung
 null
+Hi YoonSung
+Who are you?
 Hi YoonSung
 Who are you?
 ```
