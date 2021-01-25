@@ -100,7 +100,7 @@ export PATH={$Home}/.rbenv/bin:$PATH && \
 eval "$(rbenv init -)"
 ```
 
-* PATH 추가를 취해 위의 두줄을 추가해준다.
+* PATH 추가를 위해 위의 두줄을 추가해준다.
 
 ```
 source ~/.zshrc
@@ -110,7 +110,7 @@ source ~/.zshrc
 ---
 
 ## 지킬 블로그 구동을 위한 설정하기
-> [이전에 쓴 글](https://unluckyjung.github.io/github/2020/02/16/Jekyll_start/) 를 참고했다.
+> [이전에 쓴 글](https://unluckyjung.github.io/github/2020/02/16/Jekyll_start/) 을 참고했다.
 
 ```
 gem install bundler
