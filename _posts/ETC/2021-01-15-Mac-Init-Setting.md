@@ -106,7 +106,7 @@ git --version
 
 * 기본적으로 git이 설치되어 있지만, **구버전**이다.
 * 새로운 버전으로 받아준다.
-    * 애플 터미널에서 버전 확인시 구버전으로 표시되지만, `itrem2` 에서는 최신버전으로 표시되고 있다.
+    * 애플 터미널에서 버전 확인시 구버전으로 표시되지만, `iterm2` 에서는 최신버전으로 표시되고 있다.
     * 애플 터미널에서도 최신버전을 적용하고 싶다면, [두번째링크](https://nillk.tistory.com/1) 참고.
 
 ### GitKraken 설치
@@ -166,7 +166,8 @@ source ~/.zsjrc
 ```
 
 * 해당 명령을 **꼭 실행** 해주어야 적용이된다.
-* 이제 보면 기본폰트를 꺠져서 나올것이다. 새로운 폰트를 받아보자
+* 이제 보면 기본폰트가 꺠져서 나올것이다. 새로운 폰트를 받아보자
+  * 나의 경우 `D2 font` 를 선택했다.
 
 ---
 
@@ -202,7 +203,7 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ## 앱 설치
 
 ### chrome 설치
-* itrems 를킨다.
+* itrems 실행.
 * brew 를 이용해 설치한다.
 
 ```console
