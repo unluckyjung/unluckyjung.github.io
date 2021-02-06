@@ -48,7 +48,7 @@ git fetch upstream
 
 혹은
 
-git fetch upstream -branchName
+git fetch upstream branchName
 ```
 
 * remote 에 있는 upstream을 가져옴.
