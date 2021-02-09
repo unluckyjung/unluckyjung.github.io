@@ -102,6 +102,23 @@ git pull upstream
 * 만약 다음과 같이 fetch 대신 pull을 한다면
     * 동기화 과정에서 있었던 `merge` 과정을 생략할 수 있다.
 
+
+---
+
+## reabse를 이용하는 방법.
+
+- 기본적으로 위의 과정과 거의 동일하다.
+
+```
+git checkout 로컬브랜치이름
+git remote add upstream 원본저장소주소
+git remote -v
+git fetch upstream 원하는브랜치이름
+git rebase upstream/로컬브랜치이름
+```
+
+---
+
 ## Reference
 * https://velog.io/@k904808/Fork-%ED%95%9C-Repository-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-%ED%95%98%EA%B8%B0
 * http://taewan.kim/post/updating_fork/
