@@ -53,7 +53,7 @@ tags:
     }
 ```
 
-- 매칭되는 것을 찾는 matcher를 만들어두고, 매칭되는게 있다면 `gruop()`을 통해 매칭되는 문자열을 뽑아낸다.
+- 매칭되는 것을 찾는 matcher를 만들어두고, 매칭되는게 있다면 `group()`을 통해 매칭되는 문자열을 뽑아낸다.
 
 ```java
         while (IS_ONLY_NUMBER.matcher(str).find()) {
