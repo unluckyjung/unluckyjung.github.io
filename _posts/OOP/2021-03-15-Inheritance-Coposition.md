@@ -245,9 +245,10 @@ class SuperCar extends Car {
   - 사용자는 메소드의 내용을 전혀 몰라도, 제공되는 메소드 이름만을 통해서 객체를 다룰수 있게 된다.
   
 - 하지만 오버라이딩을 한다면? 기존에 목적했던 보호하는 역할, 숨기는 역할을 제대로 수행하게 되지 못하는것이다.
-- 상속과 캡슐화에 대한 내용은 나중에 다른문서를 통해 자세히 정리해보려고 한다.
+- ~~상속과 캡슐화에 대한 내용은 나중에 다른문서를 통해 자세히 정리해보려고 한다.~~
   - 상속자체가 캡슐화를 **깬다**?
   - 상속은 캡슐화를 **손상** 시킬 가능성이 있는것이지, **깬다** 라고 보기에는 힘들다.
+- 상속이 캡슐화를 깬다 라는부분에 대해 고민하고 정리한 [문서링크](https://unluckyjung.github.io/oop/2021/03/17/Inheritance-and-Encapsulation/)
   
 - https://stackoverflow.com/questions/9344935/inheritance-breaking-encapsulation
 - https://stackoverflow.com/questions/40321009/inhertitance-breaks-encapsulation
