@@ -162,7 +162,7 @@ vi ~/.zshrc
 * `ZSH_THEME="agnoster"` 로 바꾸어준다.
 
 ```
-source ~/.zsjrc
+source ~/.zshrc
 ```
 
 * 해당 명령을 **꼭 실행** 해주어야 적용이된다.
