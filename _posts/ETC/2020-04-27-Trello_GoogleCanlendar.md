@@ -9,7 +9,7 @@ tags:
 - Google Calendar
 
 photos: 
-- https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Google_Calendar.png/220px-Google_Calendar.png
+- https://user-images.githubusercontent.com/43930419/121389935-d9fdf800-c987-11eb-80df-5d07a434147f.png
 
 ---
 
