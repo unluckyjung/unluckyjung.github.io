@@ -367,11 +367,11 @@ gradle build -x test`
 ---
 
 ## Bean을 Config 파일로 만들어 따로 관리하기
-- 블로그 포스팅 후 링크 추가 예정
+- https://unluckyjung.github.io/spring/2021/05/30/Spring-BeanConfig/
 
 ---
 
 ## @Bean vs @Component
-- 블로그 포스팅 후 링크 추가 예정 
+- https://unluckyjung.github.io/spring/2021/06/06/Spring-Bean-VS-Component/
 
 ---

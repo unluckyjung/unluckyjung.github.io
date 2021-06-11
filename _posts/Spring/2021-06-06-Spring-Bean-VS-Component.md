@@ -81,7 +81,8 @@ public class Gson {
 ## TIP
 - `@Component`를 `@Configuration`로 바꿔주어도 작동에는 문제가 없다.
   - `@Configuration` 가 `@Component`를 들고 있는 구조이다.
-  - 하지만 동작 방식이 조금 다르다. 이부분에 대해서는 추가적으로 포스팅을 한뒤 링크를 걸 예정
+  - ~~하지만 동작 방식이 조금 다르다. 이부분에 대해서는 추가적으로 포스팅을 한뒤 링크를 걸 예정~~
+  - https://unluckyjung.github.io/spring/2021/06/11/Spring-Configuration-VS-Component/
 
 ---
 
