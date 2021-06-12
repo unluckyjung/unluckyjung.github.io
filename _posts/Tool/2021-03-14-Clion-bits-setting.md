@@ -171,6 +171,37 @@ vi stdc++.h
 
 - stdc++.h 를 사용할 수 있는것을 확인할 수 있다.
 
+
+---
+
+## 어느날 갑자기 인식을 못하는경우
+
+> 3개월만에 clion을 켜봤는데, 되던것이 갑자기 안되기 시작했다.
+
+- 해당 [링크](https://www.programmersought.com/article/2741905913/)의 글을 보고 따라 해결했다.
+
+
+```console
+/usr/local/bin
+```
+
+![image](https://user-images.githubusercontent.com/43930419/121769531-18213480-cb9f-11eb-8b4f-a966eb894fd5.png)
+
+- 위의 커맨드를 입력해, 현재 설치된 버전을 확인한다.
+  - 나의 경우 `g++-10`
+
+![image](https://user-images.githubusercontent.com/43930419/121769569-469f0f80-cb9f-11eb-96f2-7084782491d1.png)
+
+- CMake 옵션을 설치된 컴파일러 버전으로 바꾸어준다.
+
+![image](https://user-images.githubusercontent.com/43930419/121769617-941b7c80-cb9f-11eb-83cc-79e092657ada.png)
+
+- 다시 잘되기 시작했다 
+- 근데 이러면 디버깅 모드에 문제가 발생한다 -_-
+  - m1 실리콘 이슈인거 같은데.. 나중에 해결해보려고한다.
+  - https://youtrack.jetbrains.com/issue/CPP-24197
+
+
 ---
 
 ## 추가팁
@@ -189,4 +220,5 @@ vi stdc++.h
 
 ## Reference
 - https://hellogaon.tistory.com/63
-- https://subinium.github.io/xcode-header/
+- https://subinium.github.io/xcode-header
+- https://www.programmersought.com/article/2741905913
