@@ -201,6 +201,29 @@ vi stdc++.h
   - m1 실리콘 이슈인거 같은데.. 나중에 해결해보려고한다.
   - https://youtrack.jetbrains.com/issue/CPP-24197
 
+### 다른 해결방법
+> 일단 반드시 clion을 업데이트 해야한다!!!!!!!!!!!!!!
+
+![image](https://user-images.githubusercontent.com/43930419/121770800-7dc4ef00-cba6-11eb-8b46-66f9c7d4385f.png)
+
+- [링크](https://codeforces.com/blog/entry/70957?#comment-676543)를 참고했다.
+- **반드시 clion을 업데이트 해야한다!!!!!!!!!!!!!!**
+
+
+```console
+/Library/Developer/CommandLineTools/SDKs/MacOSX11.3.sdk/usr/include/c++/v1/
+
+sudo mkdir bits
+cd bits
+sudo vi stdc++.h 
+```
+
+- 드디어 일단 해결...
+- 디버깅 모드도 잘 진행된다.
+
+![image](https://user-images.githubusercontent.com/43930419/121770807-874e5700-cba6-11eb-925e-4cdf135b1a00.png)
+
+
 
 ---
 
