@@ -198,6 +198,50 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 > 이제 사용할 수 있는 명령은 초록색, 없는 명령은 분홍색으로 표시된다.
 
+
+---
+
+## vim 테마 변경
+> 필자의 경우 **dracula** 테마를 선택했다.
+
+
+```console
+// 테마 폴더를 만든다. (경로 같아야합니다.)
+mkdir -p ~/.vim/pack/themes/start
+
+// 테마 폴더로 이동
+cd ~/.vim/pack/themes/start
+
+// 테마 다운
+git clone https://github.com/dracula/vim.git dracula
+```
+
+- 테마를 다운 받는다.
+
+```console
+vi ~/.vimrc
+```
+
+- 내려받은 테마를 적용하기 위해서, `vimrc`를 편집해준다.
+
+```console
+packadd! dracula
+syntax enable
+colorscheme dracula
+
+set laststatus=2
+set statusline=\ %<%l:%v\ [%P]%=%a\ %h%m%r\ %F\
+set nu
+```
+
+- 위를 복사 붙여넣기 하고 wq하고 저장하고 나온다.
+  - set 3개는 생략해도 된다.
+- 이제 vi, vim을 킬때마다 테마가 적용된 것을 볼 수 있다.
+
+### 참고링크
+- https://draculatheme.com/vim
+- https://minimin2.tistory.com/145
+
 ---
 
 ## 앱 설치
