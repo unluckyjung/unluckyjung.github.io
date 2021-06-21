@@ -33,7 +33,7 @@ level2의 미션의 도메인은 지하철 노선이 절반이상을 차지했�
 
 # Atdd, Test Code
 
-## RestAssuere를 이용해 body 데이터를 테스트하는 방법
+## RestAssured를 이용해 body 데이터를 테스트하는 방법
 
 ### given()함과 동시에 테스트 하는방법
 
@@ -414,7 +414,7 @@ if (object !== null) {
 
 ---
 
-## 외부 라이브러리의 기능도 DI 시기키
+## 외부 라이브러리의 기능도 DI 시키기
 - [외부 라이브러리를 열어보고 추상화한뒤 dependency injection 시키기](https://unluckyjung.github.io/dev/2021/06/05/Library-DI/)
 
 ---

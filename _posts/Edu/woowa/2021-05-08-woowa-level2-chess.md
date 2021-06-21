@@ -164,7 +164,7 @@ void usersInRoom() {
 
 ---
 
-## @componentscan과 Bean 주입
+## @Componentscan과 Bean 주입
 - Component 
   -  이거 Bean으로 쓸꺼야! 를 스프링에게 알려준다.
   - 즉 `@Service`, `@Contoller`, `@Repository` 전부 다 Component 어노테이션을 가지고 있다.
@@ -186,7 +186,7 @@ void usersInRoom() {
 
 ---
 
-## @responsebody의 역할
+## @Responsebody의 역할
 - HTTP 요청으로온 Body를 자바 객체로 변환시켜서 받을 수 있다. **(수신)**
 - HTTP 응답 데이터로 보낼 수 있다. **(송신)**
 
@@ -338,6 +338,7 @@ public boolean isNotExist(String userName) {
 - Bean의 경우에는 외부라이브러리를 사용하는데 쓰이는 정도로 이전에 학습한적이 있다.
 - 당시에는 관례정도로 생각하고 넘어갔는데, 이번에 BeanConfig을 따로 분리하면서 선언될 수 있는 타입이 나누어져 있는것을 학습했다.
 - 즉 개발자가 직접 만든 Class는 @Bean 선언이 불가능하다
+- [Bean vs Component](https://unluckyjung.github.io/spring/2021/06/06/Spring-Bean-VS-Component/)
 
 ---
 
@@ -368,10 +369,5 @@ gradle build -x test`
 
 ## Bean을 Config 파일로 만들어 따로 관리하기
 - [Bean을 Config 파일에서 정의해 관리하기](https://unluckyjung.github.io/spring/2021/05/30/Spring-BeanConfig/)
-
----
-
-## @Bean vs @Component
-- [Bean vs Component](https://unluckyjung.github.io/spring/2021/06/06/Spring-Bean-VS-Component/)
 
 ---
