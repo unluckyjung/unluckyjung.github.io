@@ -286,10 +286,10 @@ public class ReturnValueController {
 - 이 방법을 채택했다.
 
 ```sql
-    public boolean isNotExist(String userName) {
-        String query = "SELECT NOT EXISTS(SELECT * FROM users WHERE name = ?)";
-        return jdbcTemplate.queryForObject(query, Boolean.class, userName);
-    }
+public boolean isNotExist(String userName) {
+    String query = "SELECT NOT EXISTS(SELECT * FROM users WHERE name = ?)";
+    return jdbcTemplate.queryForObject(query, Boolean.class, userName);
+}
 ```
 
 ### 참고링크
@@ -300,7 +300,7 @@ public class ReturnValueController {
 ## @Component, @Configuration
 - 내부를 들여다보면, @Configuration안에 @Component를 가지고 있다.
 - 이 어노테이션을 통해 Spring에게 이놈도 Scan해야해! 를 알려주는것 같다 `2021-04-26`
-  - 둘이 동작방식이 조금 다르다고 한다.
+  - 둘이 동작방식이 조금 다르다고 한다. [정리한 내용](https://unluckyjung.github.io/spring/2021/06/11/Spring-Configuration-VS-Component/)
 
 
 ---
@@ -367,11 +367,11 @@ gradle build -x test`
 ---
 
 ## Bean을 Config 파일로 만들어 따로 관리하기
-- https://unluckyjung.github.io/spring/2021/05/30/Spring-BeanConfig/
+- [Bean을 Config 파일에서 정의해 관리하기](https://unluckyjung.github.io/spring/2021/05/30/Spring-BeanConfig/)
 
 ---
 
 ## @Bean vs @Component
-- https://unluckyjung.github.io/spring/2021/06/06/Spring-Bean-VS-Component/
+- [Bean vs Component](https://unluckyjung.github.io/spring/2021/06/06/Spring-Bean-VS-Component/)
 
 ---
