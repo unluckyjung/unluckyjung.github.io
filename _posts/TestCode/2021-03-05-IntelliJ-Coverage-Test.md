@@ -2,12 +2,12 @@
 title: IntelliJ Coverage Test
 date: 2021-03-05-15:00
 categories:
-- TDD
+- TestCode
 
 tags:
 - Java
 - IntelliJ
-- TDD
+- TestCode
 
 ---
 

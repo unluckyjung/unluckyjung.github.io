@@ -2,11 +2,11 @@
 title: 테스트 메소드별로 독립된 환경에서 테스트하기
 date: 2021-05-08-16:00
 categories:
-- TDD
+- TestCode
 
 tags:
 - TDD
-- Test
+- TestCode
 - Spring
 
 ---

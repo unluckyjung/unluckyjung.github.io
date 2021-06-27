@@ -2,12 +2,12 @@
 title: Java에서 private 메소드를 테스트하기
 date: 2021-02-25-11:00
 categories:
-- TDD
+- TestCode
 
 tags:
 - Java
 - AssetJ
-- TDD
+- TestCode
 
 ---
 
