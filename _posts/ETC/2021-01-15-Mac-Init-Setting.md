@@ -127,7 +127,7 @@ brew install Gitkraken --cask
     * 따라서 **zsh**는 굳이 따로 설치 해주지 않아도 된다.
 
 ```
-brew install itrem2
+brew install iterm2
 ```
 
 
