@@ -298,6 +298,76 @@ class TeamEntityTest {
 
 ---
 
+## DTO와 Entity의 필드명이 다른경우
+
+```java
+
+//DTO to Entity
+@Mapping(source = DTO필드명, target = Entity필드명)
+UserEntity toEntity(final UserDTO dto);
+```
+
+- `@Mapping` 어노테이션의 source와 taget 속성을 이용합니다.
+
+```java
+@Getter
+@AllArgsConstructor
+public class UserEntity {
+    
+    private Long id;
+}
+
+...
+
+@Getter
+@AllArgsConstructor
+public class UserDTO {
+
+    private Long userId;
+}
+```
+
+
+```java
+@Mapper
+public interface UserMapper extends EntityMapper<UserDTO, UserEntity> {
+
+    UserMapper MAPPER = Mappers.getMapper(UserMapper.class);
+
+    @Override
+    @Mapping(source = "userId", target = "id")
+    UserEntity toEntity(final UserDTO dto);
+
+    @Override
+    @Mapping(source = "id", target = "userId")
+    UserDTO toDto(final UserEntity entity);
+}
+```
+
+### 테스트코드
+> 통과
+
+```java
+
+class UserEntityTest {
+
+    @Test
+    void toEntityTest() {
+
+        //given
+        UserDTO userDTO = new UserDTO(777L);
+
+        //when
+        UserEntity userEntity = UserMapper.MAPPER.toEntity(userDTO);
+
+        //then
+        assertThat(userEntity.getId()).isEqualTo(userDTO.getUserId());
+    }
+}
+```
+
+---
+
 ## ETC
 - Mapping을 지원해주는 라이브러리는 **MapStruct** 외에도 다양하게 있습니다.
 - 하지만 퍼포먼스를 비교한 [자료](https://www.baeldung.com/java-performance-mapping-frameworks#1averagetime)와 점유율을 확인한 [자료](https://meetup.toast.com/posts/213)를 본다면, 저는 **MapStruct** 를 선택하겠습니다.
