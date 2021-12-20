@@ -13,6 +13,7 @@ tags:
 ---
 
 ## static 메소드를 Mockito를 이용해 mocking 해봅니다.
+> `MockedStatic<T>`
 
 ---
 
