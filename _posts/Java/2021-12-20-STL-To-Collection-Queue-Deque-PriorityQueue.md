@@ -15,8 +15,8 @@ tags:
 
 ---
 
-# 큐 메소드별 동착 차이
-> 실패시의 반환값이 다릅니다.
+## 메소드별 반환값에 차이가 있습니다.
+> 실패시의 예외를 발생시키느냐, null 혹은 false를 반환하느냐의 차이가 있습니다.
 
 | 동작| 예외 발생 | 값 반환 |
 |:---:|:---:|:---:|
@@ -24,7 +24,7 @@ tags:
 |값 제거 | remove() | poll() / element or null |
 |값 확인 | element() | peek() / element or null |
 
-> 참고: LinkedList 구현체에서는 null 삽입이 가능합니다.
+> 참고: `LinkedList` 구현체에서는 null 삽입이 가능합니다.
 
 ```java
 public class Main {
@@ -38,9 +38,11 @@ public class Main {
 
 - [공식문서 링크](https://docs.oracle.com/javase/8/docs/api/java/util/Queue.html)
 
-# Queue
-> cpp
+---
 
+# Queue
+
+## cpp
 
 ```cpp
 queue<int> q;
@@ -60,8 +62,7 @@ if (q.empty()) {
 }
 ```
 
-> java
-
+## java
 
 ```java
 Queue<Integer> q = new LinkedList<>();
@@ -84,8 +85,7 @@ if(q.isEmpty()){
 
 # Deque
 
-> cpp
-
+## cpp
 
 ```cpp
 deque<int> dq = {10, 20, 30};
@@ -107,8 +107,7 @@ if (dq.empty()) {
 }
 ```
 
-> java
-
+## java
 
 ```java
 Deque<Integer> dq = new LinkedList<>();
@@ -140,7 +139,7 @@ if(dq.isEmpty()){
 
 ## 기본 문법
 
-> cpp
+### cpp
 
 ```cpp
 priority_queue<int, vector<int>> pq;
@@ -154,7 +153,7 @@ cout << pq.empty()  << "\n";  // (true)
 ```
 
 
-> java
+### java
 
 ```java
 PriorityQueue<Integer> pq = new PriorityQueue<>();
@@ -173,9 +172,9 @@ System.out.println(pq.isEmpty());   // (false)
 System.out.println(pq.poll());  // top + pop (20)
 System.out.println(pq.isEmpty());   // (true)
 ```
-### 기본 정렬 구조
 
-- Cpp의 경우에는 기본이 **MaxHeap**, 자바의 경우에는 **MinHeap** 으로 작동한다.
+## 기본 정렬 구조
+> Cpp의 경우에는 기본이 **MaxHeap**, 자바의 경우에는 **MinHeap** 으로 작동한다.
 
 ```cpp
 priority_queue<int, vector<int>> pq;    // Max Heap
@@ -191,8 +190,7 @@ pq.offer(7);
 System.out.println(pq.peek()); // (7)
 ```
 
-### 역순 정렬
-
+## 역순 정렬
 > cpp Max to Min
 
 ```cpp
@@ -215,7 +213,7 @@ System.out.println(pq.peek()); // (10)
 
 ## 만든 구조체 or 객체 정렬 기준을 세워주기
 
-> cpp
+### cpp
 
 ```cpp
 #include <bits/stdc++.h>
@@ -246,8 +244,7 @@ int main() {
 }
 ```
 
-> java
-
+### java(1)
 > Comparable 인터페이스를 상속해 구현하는 방법
 
 - 기본적인 정렬방식을 정의해준다.  
@@ -297,6 +294,7 @@ class Man implements Comparable<Man> {
 }
 ``` 
 
+### java(2)
 > Comporator를 이용하는방법  
 
 
@@ -318,7 +316,7 @@ public static void main(String[] args) throws IOException {
 }
 ```
 
-> 람다 버전
+### 람다를 이용해 간결화
 
 ```java
 public static void main(String[] args) {
