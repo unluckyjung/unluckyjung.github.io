@@ -67,6 +67,20 @@ if (!str.contains("null")) {
 str += "UnlcukyJung"; // "JungYoonsungUnlcukyJung"
 ```
 
+## 문자열 대소 비교시 (java)
+
+```java
+String str = "aaa";
+System.out.println(str.compareTo("bbb"));   // -1
+System.out.println(str.compareTo("bb"));   // -1
+System.out.println(str.compareTo("aaaa"));   // -1
+
+System.out.println(str.compareTo("aaa"));   // 0
+
+System.out.println(str.compareTo("aa"));   // 1 (1이상의 값)
+System.out.println(str.compareTo("a"));   // 2 (1이상의 값)
+```
+
 ---
 
 ## N번째 index에 접근하기
