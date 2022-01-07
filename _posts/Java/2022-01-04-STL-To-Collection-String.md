@@ -174,6 +174,25 @@ public class Main {
 }
 ```
 
+---
+
+## 문자열 뒤집기
+
+### cpp
+
+```cpp
+string str = "abcd";
+reverse(str.begin(), str.end());
+cout << str;  // "cdba"
+```
+
+### java
+
+```java
+StringBuilder sb = new StringBuilder("abcd");
+sb.reverse();
+System.out.println(sb); // "dcba"
+```
 
 ---
 
