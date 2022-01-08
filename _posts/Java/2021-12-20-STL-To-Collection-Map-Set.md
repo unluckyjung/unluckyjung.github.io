@@ -138,6 +138,28 @@ class Solution {
 - cpp의 경우 `used[key]`로 없는 key값에 접근하는경우, 디폴트값이 자동으로 들어가게 됩니다.
 - 하지만 java의 경우 **Exception** 이 발생하게 됩니다.
 
+> `getOrDefefault(key, defaultValue)`
+
+```java
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+class Solution {
+    public static void main(String[] args) {
+        List<Integer> nums = Arrays.asList(1, 2, 1, 1);
+        Map<Integer, Integer> usedCount = new HashMap<>();
+        for (int num : nums) {
+            usedCount.put(num, usedCount.getOrDefault(num, 0) + 1);
+        }
+        System.out.println(usedCount.get(1));   // 3
+    }
+}
+```
+
+- `getOrDefault()` 를 이용해 공수를 좀 더 줄일 수 있습니다.
+
 
 ---
 
