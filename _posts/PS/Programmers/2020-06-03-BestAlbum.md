@@ -157,9 +157,78 @@ int main() {
 }
 ```
 
+---
+
+## Java 코드
+
+```java
+import java.util.*;
+
+class Solution {
+
+    List<Integer> answer = new ArrayList<>();
+    Map<String, Integer> typeMap = new HashMap<>();
+    Map<String, List<Pair>> playMap = new HashMap<>();
+
+    public List<Integer> solution(String[] genres, int[] plays) {
+        for (int i = 0; i < genres.length; ++i) {
+            String type = genres[i];
+            int playIndex = i;
+            int playCount = plays[i];
+
+            typeMap.put(type, typeMap.getOrDefault(type, 0) + playCount);
+
+            List<Pair> list = playMap.getOrDefault(type, new ArrayList<>());
+            list.add(new Pair(playCount, playIndex));
+            playMap.put(type, list);
+        }
+
+        Map<Integer, String> orderedTypes = new TreeMap<>();
+        for (String type : typeMap.keySet()) {
+            orderedTypes.put(-typeMap.get(type), type);
+        }
+
+        for (Integer playCount : orderedTypes.keySet()) {
+            String type = orderedTypes.get(playCount);
+            List<Pair> list = playMap.get(type);
+            Collections.sort(list);
+
+            for (int i = 0; i < list.size() && i < 2; ++i) {
+                answer.add(list.get(i).number);
+            }
+        }
+        return answer;
+    }
+}
+
+class Pair implements Comparable<Pair> {
+    int playCount;
+    int number;
+
+    public Pair(final int playCount, final int number) {
+        this.playCount = playCount;
+        this.number = number;
+    }
+
+    @Override
+    public int compareTo(final Pair o) {
+        if (this.playCount == o.playCount) {
+            return Integer.compare(this.number, o.number);
+        } else {
+            return -Integer.compare(this.playCount, o.playCount);
+        }
+    }
+}
+```
 
 ---
 
 ## 피드백
+
+### cpp
 * `map`은 `key`값을 기준으로 정렬 된다는 것을 또 깜박 했다.
 * 항상 양수만 나온다는 조건에서는 `음수`를 이용하여 의도적으로 내림차순을 유도할 수 있다는 것을 알게 되었다.
+
+### java
+- java의 경우 map을 다루는것이 굉장히 불편하다. ~~디폴트값이 있는지 일일히 확인해줘야한다.~~ `getOrDefault` 를 이용해 수고를 줄일 수 있다.
+- 싱글톤 List를 쓰는걸 지양하자.
