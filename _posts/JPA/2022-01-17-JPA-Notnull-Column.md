@@ -86,7 +86,8 @@ create table member (
 ---
 
 ## Hibernate에서는 @NotNull 어노테이션을 지원한다.
-> Hibernate 객체 관계형 매퍼를 사용하는 경우 모델에 대한 DDL을 생성할 때 일부 제약 조건이 고려됩니다("Hibernate 메타데이터 영향" 참조).
+> Hibernate 객체 관계형 매퍼를 사용하는 경우 모델에 대한 DDL을 생성할 때 일부 제약 조건이 고려됩니다  
+> ("Hibernate 메타데이터 영향" 참조).
 
 - [공식문서](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-defineconstraints-spec)를 보면, `@NotNull` 어노테이션을 인식 후 DDL스키마 데이터로 변환하는것을 확인 할 수 있습니다.
 
@@ -95,11 +96,14 @@ create table member (
 
 > properties  
 
+
 ```
 spring.jpa.properties.hibernate.validator.apply_to_ddl=false
 ```
 
 > yml  
+
+
 ```yml
 spring:
   jpa:
@@ -132,8 +136,18 @@ spring:
 > 예외를 트리거하는 타이밍의 차이가 있습니다.
 
 - 가능하면 **@NotNull**을 쓰는것을 추천합니다.
-- `nullable = false` 옵션의 경우, 엔티티 필드값이 null로 채워지는것은 막지 못하고, DB에 Insert쿼리를 쏘는 상황에서야 예외를 터트리게 됩니다.
-- 하지만 `@NotNull`의 경우 엔티티의 필드값에 null 값을 채우는 순간 바로 예외를 터뜨리므로 더 빠른 순간에 문제를 잡아낼 수 있습니다.
+- `nullable = false` 옵션의 경우, DB에 Insert **쿼리를 쏘는 상황**에서야 예외를 터트리게 됩니다.
+- 하지만 `@NotNull`의 경우 엔티티를 만드는것 자체는 가능하나, Repository에 잘못된 엔티티를 저장할때, [ConstraintViolationException](https://docs.oracle.com/database/121/JAXML/javax/jcr/nodetype/ConstraintViolationException.html)를 터뜨리므로 더 빠른 순간에 문제를 잡아낼 수 있습니다.
+
+> Exception thrown when an action would violate a constraint on repository structure. For example, when an attempt is made to persistently add an item to a node that would violate that node's node type.
+
+
+
+
+```java
+Member member = new Member(null); // 예외발생 x
+Member savedMember = memberRepository.save(member); // 예외발생 o
+```
 
 ```java
 // @NotNull
@@ -170,7 +184,7 @@ List of constraint violations:[
 ---
 
 ## Github
-- 관련된 코드는 [이쪽](https://github.com/unluckyjung/spring-jpa-playground/tree/jpa-validator)에서 확인해보실 수 있습니다.
+- 관련된 코드는 [이쪽](https://github.com/unluckyjung/blog-codes/tree/main/validator-and-jpa)에서 확인해보실 수 있습니다.
 
 ---
 
