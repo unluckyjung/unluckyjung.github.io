@@ -376,7 +376,7 @@ class UserEntityTest {
 ---
 
 ## Code
-- 해당코드들은 전부 [github](https://github.com/unluckyjung/blog-codes/tree/main/MapStruct)에서 확인 하실 수 있습니다.
+- 해당코드들은 전부 [github](https://github.com/unluckyjung/blog-codes/tree/main/mapstruct)에서 확인 하실 수 있습니다.
 
 ---
 
