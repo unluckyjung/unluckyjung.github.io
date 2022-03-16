@@ -1,3 +1,7 @@
+## [Blog Link](https://unluckyjung.github.io/)
+
+---
+
 ## :pencil: 연도-월-일-제목
 ### :warning: post 파일 이름은 반드시 영어로.
 
