@@ -18,7 +18,7 @@ photos:
 ---
 
 ## 전체적인 흐름
-> https://subicura.com/2017/11/22/mac-os-development-environment-setup.html
+> [sabicura님 블로그](https://subicura.com/2017/11/22/mac-os-development-environment-setup.html)를 따라갔습니다.
 
 ---
 
@@ -34,8 +34,8 @@ photos:
 defaults write com.apple.screencapture location ~/{경로}/ && killall SystemUIServer
 ```
 
-* default**s** 이다. `이거 틀려서 왜 안되지 하고 있었음`
-* 맨뒤에 `/` 도 넣어주어야한다.
+* default**s** 이다. `이거 틀려서 왜 안되지 하고 있었습니다.`
+* 맨뒤에 `/` 도 넣어주어야 합니다.
 
 ---
 
@@ -43,7 +43,8 @@ defaults write com.apple.screencapture location ~/{경로}/ && killall SystemUIS
 > [참고링크](https://ninanung0503.medium.com/apple-silicon-m1-mac%EC%97%90-homebrew-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0-7b6c0d3aba08)
 
 * **M1** 설치 방법 
-    * 터미널 우측 클릭, 정보 가져오기, `Rosetta를 사용하여 열기` 체크
+    * ~~터미널 우측 클릭, 정보 가져오기, `Rosetta를 사용하여 열기` 체크~~
+    * `2022.04.01` 기준 더이상 Rosetta 설정 작업을 수행하지 않아도 됩니다.
 
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -79,7 +80,7 @@ brew install cask
 ```
 
 ### brew 업데이트하기
-> brew 작업전 하는것을 추천
+> brew 작업전 하는것을 추천합니다.
 
 ```
 brew update
@@ -88,10 +89,10 @@ brew update
 ### brew cask install 문제 발생시
 > `Calling brew cask install is disabled! Use brew install [--cask] instead.`
 
-* [개발자 링크](https://github.com/ansible-collections/community.general/issues/1524#issuecomment-749945392) 를 참고한다.
+* [개발자 링크](https://github.com/ansible-collections/community.general/issues/1524#issuecomment-749945392) 를 참고합니다.
     * **brew cask** 는 2.7.0 업데이트부터 명령이 비활성화 되었다. `2020-12-01` 부터 사용 불가.
-    * `brew install --cask` 로 설치한다.
-    * 그냥 `brew intall` 해도 되긴되더라.. 
+    * `brew install --cask` 로 설치합니다.
+    * 그냥 `brew intall` 으로 설치를 하여도 문제 없습니다.
 
 ---
 
@@ -104,10 +105,10 @@ brew install -s git
 git --version
 ```
 
-* 기본적으로 git이 설치되어 있지만, **구버전**이다.
-* 새로운 버전으로 받아준다.
-    * 애플 터미널에서 버전 확인시 구버전으로 표시되지만, `iterm2` 에서는 최신버전으로 표시되고 있다.
-    * 애플 터미널에서도 최신버전을 적용하고 싶다면, [두번째링크](https://nillk.tistory.com/1) 참고.
+* 기본적으로 git이 설치되어 있지만, **구버전**입니다.
+* 새로운 버전으로 받아줍니다.
+    * 애플 터미널에서 버전 확인시 구버전으로 표시되지만, `iterm2` 에서는 최신버전으로 표시되고 있습니다.
+    * 애플 터미널에서도 최신버전을 적용하고 싶다면, [nillk님 블로그](https://nillk.tistory.com/1)를 참고하시기 바랍니다.
 
 ### GitKraken 설치
 ```
@@ -123,8 +124,8 @@ brew install Gitkraken --cask
 
 ### iterm2 설치
 
-* `m1`에는 기본적으로 **zsh** 환경으로 되어있다.
-    * 따라서 **zsh**는 굳이 따로 설치 해주지 않아도 된다.
+* `m1`에는 기본적으로 **zsh** 환경으로 되어있습니다.
+* 따라서 **zsh**는 굳이 따로 설치 해주지 않아도 된다.
 
 ```
 brew install iterm2
@@ -132,7 +133,7 @@ brew install iterm2
 
 
 ### iterm 한글 깨짐 방지
-* `profile > text > unicode > from`을 NFC로 변경
+* `profile > text > unicode > from`을 NFC로 변경해 줍니다.
 
 ### iterm 꾸미기
 * https://jojoldu.tistory.com/428
@@ -157,17 +158,17 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 ```
 vi ~/.zshrc
 ```
-* 설정파일로 접근한다.
-* 상단에서 `ZSH_THEME="robyrussell"` 를 찾는다.
-* `ZSH_THEME="agnoster"` 로 바꾸어준다.
+* 설정파일로 접근합니다.
+* 상단에서 `ZSH_THEME="robyrussell"` 를 찾습니다.
+* `ZSH_THEME="agnoster"` 로 바꾸어줍니다.
 
 ```
+// 적용 해줍니다.
 source ~/.zshrc
 ```
 
 * 해당 명령을 **꼭 실행** 해주어야 적용이된다.
-* 이제 보면 기본폰트가 꺠져서 나올것이다. 새로운 폰트를 받아보자
-  * 나의 경우 `D2 font` 를 선택했다.
+* 이제 보면 **기본폰트가 꺠져서 나올것입니다**. 새로운 폰트를 받아봅시다. 저의 경우 `D2 font` 를 선택했습니다.
 
 ---
 
@@ -178,25 +179,11 @@ source ~/.zshrc
 
 ### D2 front 적용하기
 * **iterm**를 킨다.
-* `cmd + ,` 를 눌러서 환경설정에 들어간다
-* `profile > text > Font` 에서 D2Coding로 바꿔준다.
-* iterm을 껏다 킨다.
+* `cmd + ,` 를 눌러서 환경설정에 들어갑니다.
+* `profile > text > Font` 에서 **D2Coding**로 바꿔줍니다.
+* iterm을 재시작 합니다.
 
 ---
-
-### Syntax Hightlihgt 적용하기
-
-```
-brew install zsh-syntax-highlighting
-```
-* brew 를 이용해서 설치한다.
-
-```
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-```
-* 플러그인을 적용한다.
-
-> 이제 사용할 수 있는 명령은 초록색, 없는 명령은 분홍색으로 표시된다.
 
 
 ### zsh-completions, zsh-syntax-highlighting 설치하기
@@ -241,7 +228,7 @@ source ~/.zshrc
 ---
 
 ## vim 테마 변경
-> 필자의 경우 **dracula** 테마를 선택했다.
+> 필자의 경우 **dracula** 테마를 선택했습니다.
 
 
 ```console
@@ -273,9 +260,8 @@ set statusline=\ %<%l:%v\ [%P]%=%a\ %h%m%r\ %F\
 set nu
 ```
 
-- 위를 복사 붙여넣기 하고 wq하고 저장하고 나온다.
-  - set 3개는 생략해도 된다.
-- 이제 vi, vim을 킬때마다 테마가 적용된 것을 볼 수 있다.
+- 위를 복사 붙여넣기 하고 wq하고 저장하고 나온다. **(밑의 set 3개는 생략해도 됩니다.)**
+- 이제 vi, vim을 킬때마다 테마가 적용된 것을 볼 수 있습니다.
 
 ### 참고링크
 - https://draculatheme.com/vim
@@ -321,30 +307,44 @@ brew install visual-studio-code --cask
 ## openJDK 설치하기
 > 전체적인 내용을 담은 [링크](https://github.com/AdoptOpenJDK/homebrew-openjdk)
 
-* JAVA8 버전을 설치하는것을 목표로합니다.
+* JAVA8 버전을 설치하는것을 목표로 합니다.
 
 ```
 brew tap AdoptOpenJDK/openjdk
 ```
 
-* `openjdk` 저장소를 다운받는다.
-    * 여기서 tap이란? [링크](https://velog.io/@iamchanii/Brewfile%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%B4%EC%84%9C-%ED%8C%80-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EB%A7%8C%EB%93%A4%EA%B8%B0#tap-brew-cask)
-    * 서드파티 저장소라고 생각하면 된다.
-    * 해당 저장소를 tap에 추가할 수 있고, **install** 시 해당 tap을 이용할 수 있게 된다.
-    * `brew tap` 명령을 통해서 추가된 탭목록을 확인할 수 있다.
+* `openjdk` 저장소를 다운받는다. 
+
+<details>
+<summary>여기서 tap이란?</summary>
+<div markdown="1">
+
+> [링크](https://velog.io/@iamchanii/Brewfile%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%B4%EC%84%9C-%ED%8C%80-%EA%B0%9C%EB%B0%9C-%ED%99%98%EA%B2%BD-%EB%A7%8C%EB%93%A4%EA%B8%B0#tap-brew-cask)
+* 서드파티 저장소라고 생각하면 됩니다.
+* 해당 저장소를 tap에 추가할 수 있고, **install** 시 해당 tap을 이용할 수 있게 됩니다.
+* `brew tap` 명령을 통해서 추가된 탭목록을 확인할 수 있습니다.
+
+</div>
+</details>
+
+<br>
+
+
 
 ```
 $ brew install --cask <version>
 brew install --cask adoptopenjdk8
 ```
 
-* 버전을 openjdk8 으로 하여 다운받는다.
+* 버전을 openjdk8 으로 하여 다운받습니다.
 
 ```
 java -version
 ```
 
 * 설치된 자바 버전을 확인한다.
+
+> 만약 여러개 버전의 JDK를 설치한뒤 스위칭 하고 싶으면, [맥북에서 Java 버전을 변경하기](https://unluckyjung.github.io/dev/2021/12/15/Java-Version-Mac/) 포스팅을 확인하시면 되겠습니다.
 
 ---
 
