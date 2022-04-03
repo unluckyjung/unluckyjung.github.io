@@ -199,6 +199,45 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 > 이제 사용할 수 있는 명령은 초록색, 없는 명령은 분홍색으로 표시된다.
 
 
+### zsh-completions, zsh-syntax-highlighting 설치하기
+> 자동완성, 신텍스 하이라이팅을 지원해주는 플러그인 입니다.
+
+- 공식문서 가이드를 따라갑니다.
+- [zsh-completions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md)
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/INSTALL.md)
+
+> 제가 사용하고 있는 Oh My Zsh 기준입니다.
+
+```console
+// 설치1
+$ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+// 설치2
+$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+
+```console
+
+// 설정 열기
+$ vi ~/.zshrc
+
+// 변경
+plugins=( 
+    # other plugins...
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
+
+// 적용
+source ~/.zshrc
+```
+
+![image](https://user-images.githubusercontent.com/43930419/161419289-01467941-dbfb-4ade-92d8-c1272a9cfad4.png)
+
+![image](https://user-images.githubusercontent.com/43930419/161419295-01c3e99b-4fe1-4a8f-a3b3-aebbcb89fa31.png)
+
+- 적용하고 나면 사용하지 못하는 명령어는 **붉은색**, 추천 자동완성은 **회색**, 사용할수 있는 명령어는 **초록색**으로 표시됩니다.
+
 ---
 
 ## vim 테마 변경
