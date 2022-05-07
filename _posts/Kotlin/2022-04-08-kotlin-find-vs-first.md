@@ -102,7 +102,7 @@ enum class Rank(val matchCount: Int) {
 }
 ```
 
-- 만약 찾는값이 없는경우, 예외가 아닌 null 값을 내보내고 싶다면 `findOrNull()` 을 사용해주면 됩니다.
+- 만약 찾는값이 없는경우, 예외가 아닌 null 값을 내보내고 싶다면 `firstOrNull()` 을 사용해주면 됩니다.
 
 ---
 
