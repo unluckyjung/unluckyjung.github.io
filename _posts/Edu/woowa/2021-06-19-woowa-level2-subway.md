@@ -231,7 +231,7 @@ public class AcceptanceTest {
 ```java
 @Bean
 @Profile("!test")
-HelloService fooService() {
+public HelloService fooService() {
   return new fooService();
 }
 ```
@@ -244,7 +244,7 @@ test 프로필이 아닌경우에만 `fooService` 를 빈으로 등록할 수 �
 ```java
 @Bean
 @Profile({"!line", "!holiday"})
-HelloService fooService() {
+public HelloService fooService() {
   return new fooService();
 }
 ```

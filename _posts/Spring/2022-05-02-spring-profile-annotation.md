@@ -27,18 +27,23 @@ tags:
 
 
 ```java
-@Component
-@Profile("test")
-public class SampleBean () {
-  return new foo();
+@Configuration
+public class BeanConfig {
+  
+  @Profile("dev")
+  @Bean
+  public BeanA beanA(){
+      return new BeanA();
+  }
 }
 
-@Bean
 @Profile("!test")
-public class RealService () {
-  return new bar();
+@Component
+public class RealService {
+  ...
 }
 ```
+
 - `@Profile` 어노테이션을 이용해 빈이나, 컴포넌트에게 프로필을 정해줄 수 있습니다.
 - 이때 부정의 `!` 연산을 사용할 수 있습니다. 위와 같은경우 test 프로필이 아닌 경우에만 `RealService()` 가 활성화 됩니다.
 
@@ -57,16 +62,16 @@ public class AcceptanceTest {
 ```
 
 - 테스트 코드 수행시 `@ActiveProfile` 을 이용해 특정 프로필의 빈만 로드하면서 테스트를 수행할 수 있습니다.
-- **AcceptanceTest**를 수행하면 `RealService()` 는 빈으로 등록되지 않고, **SampleBean()** 만 빈으로 등록 됩니다.
+- **AcceptanceTest**를 수행하면 `RealService` 는 빈으로 등록되지 않고, **BeanA** 만 빈으로 등록 됩니다.
 
 ### 옵션을 여러개 주기
 > 여러 프로필을 등록할 수 있습니다.
 
 ```java
-@Bean
 @Profile({"!dev", "!prod"})
-public class testService testService() {
-  return new testService();
+@Component
+public class testService {
+  ...
 }
 ```
 
@@ -149,3 +154,5 @@ $ java -jar -Dspring.profiles.active=prod babble.jar
 - https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/core/env/Profiles.html
 - https://www.baeldung.com/spring-profiles
 - https://galid1.tistory.com/664
+- https://johngrib.github.io/wiki/spring-annotation-profile/
+- https://johngrib.github.io/wiki/spring-annotation-bean/
