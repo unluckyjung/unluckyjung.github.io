@@ -204,7 +204,7 @@ fun getMemberInfoValidatedParam2(
 }
 ```
 
-- `@Valid` 도 통과하지 못하고, `@Min` 도 통과하지 못하는 요청이 오는경우, `@Valid` 가 먼저 체크되어 `MethodArgumentValidException`이 발생합니다.
+- `@Valid` 도 통과하지 못하고, `@Min` 도 통과하지 못하는 요청이 오는경우, `@Valid` 가 먼저 체크되어 `MethodArgumentnotValidException`이 발생합니다.
 - 만약 `@Valid`는 통과하고, `@Min` 에서 걸리는 경우에는 `ConstraintViolationException` 가 발생합니다.
 
 
@@ -247,7 +247,7 @@ class MemberService {
 ### @Valid
 - JSR 지원 스펙이다.
 - 컨트롤러 파라메터에서 사용시, 리졸버 단계에서 유효성 검사가 진행된다.
-- 발생되는 예외는 `MethodArgumentValidException` 이다.
+- 발생되는 예외는 `MethodArgumentnotValidException` 이다.
 - **404 응답** 을 내보낸다.
 
 
