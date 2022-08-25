@@ -29,13 +29,14 @@ tags:
 ```kotlin
 @GetMapping("hello/query-params/default-test1")
 fun helloQueryParamsDefaultTest1(
-    @RequestParam(defaultValue = "77", required = false) age: Int?,
+    @RequestParam(defaultValue = "77", required = false) age: Int,
 ): String {
     return "age: $age"
 }
 ```
 
-- 코드에서 보는것처럼 `@RequestParam` 옵션을 `required = false` 으로 주고 받는 타입에 `?` 을 붙여서 nullable하게 해줍니다.
+- ~~코드에서 보는것처럼 `@RequestParam` 옵션을 `required = false` 으로 주고 받는 타입에 `?` 을 붙여서 nullable하게 해줍니다.~~ (Int? 가 아닌 Int 여도 문제 없습니다.)
+- 코드에서 보는것처럼 `@RequestParam` 옵션을 `required = false` 으로 줍니다.
 - 그리고 `defaultValue = {value}` 값을 넣어주면 됩니다.
 
 ### 주의할점
