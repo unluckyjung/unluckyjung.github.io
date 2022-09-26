@@ -52,10 +52,9 @@ data class Request(
 @ExceptionHandler(value = [HttpMessageNotReadableException::class])
 @ResponseBody
 fun dtoTypeMissMatchException(exception: HttpMessageNotReadableException): ResponseEntity<ExceptionDto> {
-    val msg = when (exception.cause) {
+    val msg = when (val causeException = exception.cause) {
         is MissingKotlinParameterException -> {
-            val causeException = (exception.cause as MissingKotlinParameterException)
-            "해당 필드는 null로 오면 안됩니다. 필드명: ${causeException.parameter.name}"
+            "해당 필드는 null 로 오면 안됩니다. 필드명: ${causeException.parameter.name}"
         }
 
         else -> "요청을 역직렬화 하는과정에서 예외가 발생했습니다."
@@ -121,7 +120,7 @@ is MissingKotlinParameterException -> {
 ```
 
 - 발생한 예외인 `HttpMessageNotReadableException` 의 `cause` 를 확인하면 어떤 타입의 예외가 발생한것이 원인인지를 찾아 해결할 수 있습니다.
-- 이후 원인이 되었던 예외 타입으로 형변환을 해준뒤 내부를 확인해보면, 실제로 어떤 원인 (`causeException.parameter.name`) 으로 인해 해당 예외가 발생했는지를 명확히 알 수 있게 됩니다. 
+- 이후 원인이 되었던 예외 타입으로 형변환을 해준뒤 내부를 확인해보면(when을 이용해 스마트 캐스팅 가능), 실제로 어떤 원인 (`causeException.parameter.name`) 으로 인해 해당 예외가 발생했는지를 명확히 알 수 있게 됩니다. 
 
 
 ---
@@ -155,14 +154,12 @@ class GlobalExceptionHandler {
     @ExceptionHandler(value = [HttpMessageNotReadableException::class])
     @ResponseBody
     fun dtoTypeMissMatchException(exception: HttpMessageNotReadableException): ResponseEntity<ExceptionDto> {
-        val msg = when (exception.cause) {
+        val msg = when (val causeException = exception.cause) {
             is InvalidFormatException -> {
-                val causeException = exception.cause as InvalidFormatException
                 "입력 받은 ${causeException.value} 를 ${causeException.targetType} 으로 변환중 에러가 발생했습니다."
             }
 
             is MissingKotlinParameterException -> {
-                val causeException = (exception.cause as MissingKotlinParameterException)
                 "Parameter is missing: ${causeException.parameter.name}"
             }
 
