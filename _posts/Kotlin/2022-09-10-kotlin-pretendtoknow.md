@@ -129,7 +129,7 @@ plugins {
 - 해당 플러그인을 이용하여, 프록시가 필요한 `@Component`, `@Transactional` 과 같은 스프링관련 어노테이션이 붙은 코드에는 open 변경자를 자동으로 붙이게 됩니다.
 
 ```kotlin
-allOpen{
+allOpen {
     annotation("com.my.Annotation")
 }
 
@@ -137,10 +137,12 @@ allOpen{
 allOpen {
     annotation("javax.persistence.Entity")
     annotation("javax.persistence.MappedSupperclass")
+    annotation("javax.persistence.Embeddable")
 }
 ```
 
 - 추가적으로 open 키워드가 추가적으로 필요한 경우에는 위처럼 `gradle.kotlin` 에 추가적으로 넣어주면 됩니다.
+- **proxy 기반의 lazyloading 이 필요한 경우에는 필수적인 옵션입니다.**
 
 ## 아이템4: 필드 주입이 필요하면 지연 초기화를 사용하라.
 > 의존성이 주입될 필드를 널이 될수 있는 타입으로 관리하지말라.
