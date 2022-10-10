@@ -1,5 +1,5 @@
 ---
-title: Intellij webClient plugin 사용법
+title: Intellij webClient(http Client) plugin 사용법
 date: 2022-03-08-18:00
 categories:
 - Tool
@@ -10,7 +10,7 @@ tags:
 
 ---
 
-## Intellij webClient plugin을 이용해 http requset 만들어보기
+## Intellij httpClient plugin을 이용해 http requset 만들어보기
 > postman을 사용하지 않고 request를 만들고, response를 확인해봅니다.
 
 ---
@@ -36,6 +36,9 @@ tags:
 - Json 타입을 보내고 싶다면 `Content-Type` 역시 설정이 가능하고, 이외 다른 쿠키와 같은 값들도 넣어줄 수 있습니다. 
 
 
+### Post
+> with body
+
 
 ![image](https://user-images.githubusercontent.com/43930419/154459442-ceac1a98-f6c2-42f3-a8df-d714a6d5cd46.png)
 
@@ -48,7 +51,40 @@ tags:
 - 파일로 따로 분리할 필요성이 느껴지지 않는다면, 작성한 요청 밑에 바로 적어주어도 요청생성이 가능합니다.
 
 
-### 원클릭 Request 자동생성
+
+## 파일업로드
+> `/Users/yoonsung/file-test/test.csv` 파일을 업로드 하는 상황
+
+```kotlin
+### file upload
+POST {컨트롤러 URL}
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename={"파일이름"}
+
+< 업로드할 파일경로
+--boundary--
+```
+
+### 예시
+
+```kotlin
+### file upload
+POST http://localhost:8080/api/v1/file/testfile1
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="test.csv"
+
+< /Users/yoonsung/file-test/test.csv
+--boundary--
+```
+
+
+---
+
+## 원클릭 Request 자동생성
 
 ![image](https://user-images.githubusercontent.com/43930419/155847399-29c1897f-bebd-425b-983a-1316efd07ce4.png)
 
@@ -57,15 +93,16 @@ tags:
 
 
 - 컨트롤러단에서 `Open in HTTP` Client를 클릭해 요청메시지를 자동으로 생성하는 방법도 있습니다.
-
+- `{{id}}` 처럼 파라미터 같은것은 완벽하게 생성이 안되므로 약간의 수정을 진행해주면 됩니다.
 
 ---
 
 ## Conclusion
-- 기존 PostMan을 통해서 작업을 IntelliJ 에서 제공하는 **webClient plugin** 을 이용해 간편하게 HTTP 요청을 보내고 응답을 받아볼 수 있다.
+- 기존 PostMan을 통해서 작업을 IntelliJ 에서 제공하는 **httpClient plugin** 을 이용해 간편하게 HTTP 요청을 보내고 응답을 받아볼 수 있다.
 
 ---
 
 ## Reference
 - https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html#converting-curl-requests
 - https://jojoldu.tistory.com/266
+- https://stackoverflow.com/questions/34384650/intellij-idea-rest-client-file-uploading
