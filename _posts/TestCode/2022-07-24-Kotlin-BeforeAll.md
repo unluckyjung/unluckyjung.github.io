@@ -6,7 +6,7 @@ categories:
 - Kotlin
 
 tags:
-- Koltin
+- Kotlin
 - TestCode
 - Junit5
 
