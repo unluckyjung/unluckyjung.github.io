@@ -1,5 +1,5 @@
 ---
-title: Kotlin Collections vs Seqeunce
+title: Kotlin Collections vs Sequence
 date: 2022-04-08-20:30
 categories:
 - Kotlin
@@ -11,7 +11,7 @@ tags:
 
 ---
 
-## Kotlin Collections vs Seqeunce 연산차이
+## Kotlin Collections vs Sequence 연산차이
 > Eager로 처리하느냐 Lazy하게 처리하느냐의 차이가 있습니다.
 
 ---
@@ -45,7 +45,7 @@ people.map {
 ```
 
 - 즉 위와 같은 코드가 있는경우 **map에 대한 연산을 전부다 마친뒤(2회) 결과를 저장해두고**, 이어서 filter를 처리하게 됩니다.
-- 연산 횟수 N 만큼의 저장공간이 더 필요해지게 됩니다. 즉, 예시의 경우에는 2개의 원소밖에 없지만, 만약 원소가 많은경우를 조심해야합니다.
+- 연산 횟수 N 만큼의 저장공간이 더 필요해지게 됩니다. 즉 예시의 경우에는 2개의 원소밖에 없어서 상관이 없지만, 원소가 많은 케이스에는 사용에 주의해야합니다.
 
 
 
@@ -117,7 +117,7 @@ fun main() {
     people.asSequence().map {
         println("call map")
         it.age
-    }.filter {ㅁ
+    }.filter {
         println("call filter $it")
         it >= 30
     }.toList()
