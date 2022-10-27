@@ -42,9 +42,9 @@ class AsyncConfig {
             this.corePoolSize = 5 // 기본 스레드 풀
             this.maxPoolSize = 20 // 최대 스레드 풀 (초과 요청 대기큐에도 다 찬 경우에 해당 사이즈로 증가해 작동)
             this.setQueueCapacity(50) // 초과 요청을 담는 큐의 개수
-            this.setRejectedExecutionHandler(ThreadPoolExecutor.CallerRunsPolicy()) // 문제가 발생하는 경우 해당스레드에서 다시 처리 (CallerRunsPolicy)
-            this.setWaitForTasksToCompleteOnShutdown(true) // shutdown 당해도 다른 작업 이어서 처리
-            // this.setAwaitTerminationSeconds(60) // 어플리케이션 shutdown 후 최대 60초 대기 (6 까지는 처리하지 못한 요청들을 처리함)
+            this.setRejectedExecutionHandler(ThreadPoolExecutor.CallerRunsPolicy()) // 큐가 부족해 예외가 발생하는 경우 해당스레드에서 다시 처리 (CallerRunsPolicy)
+            this.setWaitForTasksToCompleteOnShutdown(true) // shutdown 요청이 와도, 진행중인 작업을 마무리
+            // this.setAwaitTerminationSeconds(60) // 어플리케이션 shutdown 요청 후 진행중인 작업 종료까지 최대 60초 대기 (무한정 기다릴 수 없는 경우에 사용)
             this.setThreadNamePrefix("unluckyjung task executor") // 접두사
         }
     }
@@ -71,9 +71,19 @@ this.setRejectedExecutionHandler(ThreadPoolExecutor.CallerRunsPolicy()) // 문�
 ### 전략 목록
 
 - **AbortPolicy**: default 설정, `RejectedExecutionException` 발생 시킵니다. ( 서비스 쪽에서 `RejectedExecutionException` 에 대한 처리로직을 작성하지 않는다며, task 처리가 실패할 가능성이 있습니다.)
+
+![image](https://user-images.githubusercontent.com/43930419/198180849-e0e27424-8743-4181-9e31-4452756a6206.png)
+
+![image](https://user-images.githubusercontent.com/43930419/198180859-8e96e47d-d01f-4695-9a65-48ab369f146e.png)
+
+
 - **DiscardOldestPolicy**: 시간상 오래된 작업을 무시하고, 새로운 작업을 다시 처리하려고 시도합니다. **예외 조차도 발생하지 않습니다.** (task 처리가 실패할 가능성이 있습니다.)
 - **DiscardPolicy**: 처리하는 작업을 무시합니다. **예외 조차도 발생하지 않습니다.** (task 처리가 실패할 가능성이 있습니다.)
+
+
 - **CallerRunsPolicy**: 요청한 thread에서 직접 다시 처리합니다. 다만 shutdown(어플리케이션이 종료) 경우에는 제외합니다.
+
+![image](https://user-images.githubusercontent.com/43930419/198180873-6c3ab2c2-3540-40bb-bda0-6d16c84db3d2.png)
 
 
 > 커스텀 전략
