@@ -278,11 +278,12 @@ mockMvc.multipart("/api/v1/file/$testId") {
 }.andDo { }
 ```
 
-- `mockMvc.perform` 이 아니라 `mockMvc.multipart` 을 사용하는것에 **주의해야합니다.** (이 경우에는 POST 요청으로만 가게됩니다.)
+- `mockMvc.perform` 이 아니라 `mockMvc.multipart` 을 사용하는것에 **주의해야합니다.** (이 경우에는 POST 요청으로만 가게됩니다. 다른 메소드로 보내고 싶은 경우에는 [mockMvc 에서 MockMultipartFile 을 put 요청으로 보내기](https://unluckyjung.github.io/testcode/kotlin/mockmultipartfile/spring/mockmvc/2022/10/29/MockMultipartFile-put/) 를 참고하세요.)
+- json 형태를 전달하는 경우에는 body 데이터를 `toByteArray()` 을 이용해 변환한뒤 전달해주어야 합니다.
 
-```kotiln
-`.part(MockPart("파라메터 이름(key)", 파라메터값(value).
-`.param("filename", testFilename)` 
+```kotlin
+.part(MockPart("파라메터 이름(key)", 파라메터값(value))
+.param("filename", testFilename)
 ```
 
 - `@RequestParam` 를 넣어줄때 위 두가지의 방법 으로 파라메터를 넣어줄 수 있습니다.

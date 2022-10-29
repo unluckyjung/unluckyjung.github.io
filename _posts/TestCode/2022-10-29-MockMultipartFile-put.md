@@ -76,9 +76,9 @@ builder.with { request ->
 
 ---
 
-## Conclustion
-- `MockMvcRequestBuilders` 를 이용하여 요청 보낼 HTTP METHOD 를 명시해줄수 있다.
-- 이 방법을 이용하여 `mockMvc.multipart` 가 아닌 `mockMvc.perform(빌더)` 를 이용하여 파일 업로드시 PUT 으로 요청을 보낼 수 있다.
+## Conclusion
+- `MockMvcRequestBuilders` 를 이용하여 요청 보낼 `HTTP METHOD` 를 명시해줄수 있다.
+- 이 방법을 이용하여 `mockMvc.multipart` 가 아닌 `mockMvc.perform(빌더)` 를 이용하여 파일 업로드시 **PUT** 으로도 컨트롤러에 요청을 보낼 수 있다.
 
 ---
 
