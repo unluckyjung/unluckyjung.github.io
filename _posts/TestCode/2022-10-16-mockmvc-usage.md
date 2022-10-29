@@ -269,16 +269,23 @@ val testId = 1L
 
 mockMvc.multipart("/api/v1/file/$testId") {
     file(csvFile) // csv 파일 전송
-        // @RequestParam filename: String 처리를 .part 로 해줘야한다.
-        .part(MockPart("filename", testFilename.toByteArray()))
+        .param("filename", testFilename)
+        // @RequestParam filename: String 처리를 .part 로도 가능하다.
+        // .part(MockPart("filename", testFilename.toByteArray()))
     file(jsonFile)  // json dto 전송
 }.andExpect {
     status { isOk() }
 }.andDo { }
 ```
 
-- `mockMvc.perform` 이 아니라 `mockMvc.multipart` 을 사용하는것에 **주의해야합니다.**
-- 또한 `@RequestParam` 를 넣어줄때 `.part(MockPart("파라메터 이름(key)", 파라메터값(value).toByteArray()))` 와 같은 방식으로 넣어주어야 합니다.
+- `mockMvc.perform` 이 아니라 `mockMvc.multipart` 을 사용하는것에 **주의해야합니다.** (이 경우에는 POST 요청으로만 가게됩니다.)
+
+```kotiln
+`.part(MockPart("파라메터 이름(key)", 파라메터값(value).
+`.param("filename", testFilename)` 
+```
+
+- `@RequestParam` 를 넣어줄때 위 두가지의 방법 으로 파라메터를 넣어줄 수 있습니다.
 
 ---
 
@@ -286,7 +293,7 @@ mockMvc.multipart("/api/v1/file/$testId") {
 - mockmvc 를 이용하여 컨트롤러단 요청에 대한 응답을 테스트할 수 있다.
 - 쿼리파라메터 삽압시 `LinkedMultiValueMap` 를 사용해야하는것에 주의해야한다.
 - `ZoneDateTime` 을 요청에 넣어주는 경우에는 `objectMapper.writeValueAsString` 을 이용해야한다.
-- 파일을 요청에 담아 보내는 경우에는 `MockMultipartFile` 를 이용하고 `mockMvc.multipart` 을 호출해야한다.
+- 파일을 요청에 담아 보내는 경우에는 `MockMultipartFile` 를 이용하고 `mockMvc.multipart` 을 호출해야한다. (기본적으로 POST 요청시)
 
 ---
 
