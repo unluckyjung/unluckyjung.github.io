@@ -3,16 +3,18 @@ title: STL to Collection (Sort)
 date: 2022-01-05-18:15
 categories:
 - Java
+- Kotlin
 
 tags:
 - Java
+- Kotlin
 - Sort
 - Collection
 
 ---
 
 ## STL to Collection (5)
-> cpp에서 사용하는 정렬 관련기능을 java로 치환해 봅니다.
+> cpp에서 사용하는 정렬 관련기능을 java, kotlin 로 치환해 봅니다.
 
 ## 기본 자료형 정렬
 
@@ -104,6 +106,49 @@ Arrays.sort(ints);  // {1, 2, 3, 4}
 - **Double pivot quick sort**로 동작하기 때문에, 대신 **Tim Sort**로 동작하는 `Collections.sort()`를 사용하는것을 권장합니다.
 - 이부분의 대한 내용은 따로 정리해서 소개할 예정입니다.
 
+
+---
+
+### Kotlin
+
+```kotlin
+val arrayNumber = arrayOf(1,5,3)    // 기존 객체 변화
+arrayNumber.sort() // {1, 3, 5}     
+```
+
+```kotlin
+val numbers = listOf(3, 4, 1, 2)    
+numbers.sorted().forEach {  // 정렬된 새로운 객체 반환, 기존 numbers 객체는 비정렬 상태 유지
+    println(it)
+}
+```
+
+
+### 객체 정렬 Basic
+
+```kotlin
+data class SortMan(
+    val age: Int,
+    val grade: Int,
+    val birthDayTime: ZonedDateTime = ZonedDateTime.now(),
+)
+
+println("age 오름차순 정렬")
+val sortedMans1 = mans.sortedBy { it.age }
+sortedMans1.forEach {
+    println(it.toString())
+}
+
+println("age 오름차순 grade 내림차순")
+val sortedMans2 = mans.sortedWith(
+    compareBy({ it.age }, { -it.grade }),
+)
+```
+
+- `sortedBy` 를 이용해 정렬조건을 넣어줄 수 있다.
+- `sortedWith` 를 이용해 comparator 를 넣어줄 수도 있는데, 이때 `comparator` 를 `compareBy` 로 전달해 줄 수 있다.
+
+
 ---
 
 ## 역순 정렬
@@ -118,6 +163,8 @@ nums = {1, 2, 3, 4};
 sort(nums.rbegin(), nums.rend()); // {4,3,2,1}
 ```
 
+### java
+
 ```java
 List<Integer> nums = Arrays.asList(1, 2, 3, 4);
 Collections.sort(nums, Collections.reverseOrder());
@@ -127,6 +174,29 @@ Collections.sort(nums, Comparator.reverseOrder());  // {4, 3, 2, 1}
 
 nums = Arrays.asList(1, 2, 3, 4);
 nums.sort(Collections.reverseOrder());  // {4, 3, 2, 1}
+```
+
+### kotlin
+
+```kotlin
+val numbers = listOf(3, 4, 1, 2)
+numbers.sortedDescending().forEach {
+    print(it)
+}
+```
+
+```kotlin
+println("age 내림차순 정렬1")
+val sortedMans2 = mans.sortedBy { -it.age }
+sortedMans2.forEach {
+    println(it.toString())
+}
+
+println("age 내림차순 정렬2")
+val sortedMans3 = mans.sortedByDescending { it.age }
+sortedMans3.forEach {
+    println(it.toString())
+}
 ```
 
 ---
@@ -155,6 +225,12 @@ for (int num : arr) {
 Collections.sort(nums);
 ```
 
+### kotlin
+- kotlin 의 경우에는 기본 sort 역시 **stable** sort 입니다. [docs](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sort.html)
+
+> The sort is stable. It means that equal elements preserve their order relative to each other after sorting.
+
+
 ---
 
 ## 문자열 정렬
@@ -177,6 +253,14 @@ Collections.sort(list);     // {"12", "34"}
 List<String> list = Arrays.asList("12", "034");
 Collections.sort(list);     // {"034", "12"}
 ```
+
+```kotlin
+val numbers = listOf("12", "034")
+numbers.sorted().forEach {
+    println(it) // {"034", "12"}
+}
+```
+
 - cpp와 마찬가지로 숫자형태를 가진 문자열인 경우, 앞에 `"0"` 이 있는 경우를 주의해야 합니다.
 
 ---
@@ -187,8 +271,55 @@ Collections.sort(list);     // {"034", "12"}
 - 위에서 셜명한 방법인 `Comparator` 와 `static method`, `Comparable` 를 사용하는 방법이 있습니다. [STL to Collection (PriorityQueue) 에 적은 내용으로 대체합니다.](https://unluckyjung.github.io/java/2021/12/21/STL-To-Collection-Queue-Deque-PriorityQueue/#%EB%A7%8C%EB%93%A0-%EA%B5%AC%EC%A1%B0%EC%B2%B4-or-%EA%B0%9D%EC%B2%B4-%EC%A0%95%EB%A0%AC-%EA%B8%B0%EC%A4%80%EC%9D%84-%EC%84%B8%EC%9B%8C%EC%A3%BC%EA%B8%B0)
 - 정렬 조건이 여러개인 경우는 [이 글](https://unluckyjung.github.io/java/2021/02/23/Java-Custom-Sort/)로 대체합니다.
 
---
 
-## Referenc
+### kotlin
+> 여러 조건을 넣어 정렬
+
+```kotlin
+private fun multiCompare(
+    mans: List<SortMan>,
+) {
+    println("age 오름차순 grade 내림차순")
+    val sortedMans2 = mans.sortedWith(
+        compareBy({ it.age }, { -it.grade }),
+    )
+
+    sortedMans2.forEach {
+        println(it.toString())
+    }
+
+    println("age 오름차순 birthDayTime 내림차순")
+    val sortedMans4 = mans.sortedWith(
+        compareBy<SortMan> { it.age }.thenByDescending { it.birthDayTime },
+    )
+
+    sortedMans4.forEach {
+        println(it.toString())
+    }
+
+    println("age 오름차순 birthDayTime 내림차순")
+    val sortedMans5 = mans.sortedWith(
+        Comparator<SortMan> { m1, m2 ->
+            if (m1.age == m2.age) {
+                -m1.birthDayTime.compareTo(m2.birthDayTime)
+            } else {
+                m1.age.compareTo(m2.age)
+            }
+        }
+    )
+
+    sortedMans5.forEach {
+        println(it.toString())
+    }
+}
+```
+
+- `thenByDescending` 을 이용해서 음수 연산이 불가능한 경우(ZoneDateTime) 도 내림차순으로 처리해줄 수 있습니다.
+
+---
+
+## Reference
 - [Comparable, Comparator](https://docs.oracle.com/javase/8/docs/api/)
 - [Baeldung](https://www.baeldung.com/java-8-sort-lambda)
+- [Kotlin Code](https://github.com/unluckyjung/kotlin-learning/blob/f89fc0bc396cc6c76c187f7b37785dcfb5e88ed5/kotlin-learning/src/main/kotlin/basic/syntax/ps/KtSort.kt)
+- [Kotlin docs](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/sort.html)
