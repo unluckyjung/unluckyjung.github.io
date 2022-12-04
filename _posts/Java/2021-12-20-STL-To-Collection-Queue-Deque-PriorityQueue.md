@@ -3,15 +3,17 @@ title: STL to Collection (Queue, Deque, PriorityQueue)
 date: 2021-12-21-20:30
 categories:
 - Java
+- Kotlin
 
 tags:
 - Java
+- Kotlin
 - Collection
 
 ---
 
 ## STL to Collection (2)
-> cpp에서 사용하는 Queue, Deque, PriorityQueue 을 java로 치환해봅니다.
+> cpp에서 사용하는 Queue, Deque, PriorityQueue 을 java, kotlin 으로 치환해봅니다.
 
 ---
 
@@ -174,7 +176,7 @@ System.out.println(pq.isEmpty());   // (true)
 ```
 
 ## 기본 정렬 구조
-> Cpp의 경우에는 기본이 **MaxHeap**, 자바의 경우에는 **MinHeap** 으로 작동한다.
+> Cpp의 경우에는 기본이 **MaxHeap**, java, kotlin 의 경우에는 **MinHeap** 으로 작동한다.
 
 ```cpp
 priority_queue<int, vector<int>> pq;    // Max Heap
@@ -188,6 +190,13 @@ PriorityQueue<Integer> pq = new PriorityQueue<>();  // Min Heap
 pq.offer(10);
 pq.offer(7);
 System.out.println(pq.peek()); // (7)
+```
+
+```kotlin
+val pq = PriorityQueue<Int>()
+pq.add(10)
+pq.add(7)
+println(pq.element())   // (7)
 ```
 
 ## 역순 정렬
@@ -207,6 +216,13 @@ PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());  // 
 pq.offer(10);
 pq.offer(7);
 System.out.println(pq.peek()); // (10)
+```
+
+```kotlin
+val pq = PriorityQueue<Int>(Comparator.reverseOrder())
+pq.add(10)
+pq.add(7)
+println(pq.element())   // (10)
 ```
 
 ---
@@ -328,4 +344,84 @@ public static void main(String[] args) {
 }
 ```
 
----
+### Kotlin
+
+> 기본 정렬 조건 세워 주기 (`Comparable` 구현)
+
+```kotlin
+data class Man(
+    val age: Int,
+    val grade: Int,
+    val name: String,
+) : Comparable<Man> {
+
+    // 기본 정렬 조건 정의: 나이가 많고, 등급은 낮을수록 우선순위
+    override fun compareTo(other: Man): Int {
+        return compareValuesBy(
+            this, other,
+            { -it.age }, { it.grade }
+        )
+    }
+
+//    override fun compareTo(other: Man): Int {
+//        return if (-age.compareTo(other.age) == 0) {
+//            grade.compareTo(other.grade)
+//        } else {
+//            -age.compareTo(other.age)
+//        }
+//    }
+}
+```
+
+```kotlin
+private fun maxHeap() {
+    val pq = PriorityQueue<Man>() // age Max Heap
+    pq.add(Man(10, 1, "jys"))
+    pq.add(Man(20, 0, "unluckyjung"))
+    pq.add(Man(20, 2, "goodall"))
+    pq.add(Man(15, -1, "yoonsung"))
+    pq.add(Man(15, 10, "fortune"))
+
+    while (!pq.isEmpty()) {
+        println(pq.remove())
+    }
+
+/*  Man(age=20, grade=0, name=unluckyjung)
+    Man(age=20, grade=2, name=goodall)
+    Man(age=15, grade=-1, name=yoonsung)
+    Man(age=15, grade=10, name=fortune)
+    Man(age=10, grade=1, name=jys)
+    */
+}
+```
+
+- `compareValuesBy` 를 통해서, 간결하게 배교 우선순위를 정해 줄 수 있다.
+
+
+> 정렬조건 만들어주기 `Comparator` 삽입
+
+```kotlin
+val pq = PriorityQueue(
+    compareBy<Man> {
+        it.age
+    }
+)
+
+val pq = PriorityQueue(
+    compareBy<Man> ({it.age}, {it.grade})
+)
+
+val pq = PriorityQueue(
+    Comparator<Man> { m1, m2 ->
+        m1.age.compareTo(m2.age)
+    }
+)
+
+val pq = PriorityQueue { m1: Man, m2: Man ->
+    m1.age.compareTo(m2.age)
+}
+```
+
+1. Comparator 를 반환하는 `comapreBy<객체>{조건}` 으로 넣어주기
+2. 직접 Comparator 를 정의하고 로직도 넣어주기
+3. 2번을 람다식으로 풀어주기
