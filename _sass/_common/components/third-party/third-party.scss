@@ -10,3 +10,7 @@
 @if jekyll-config('algolia_search.enable') {
   @include algolia-search;
 }
+
+iframe[sandbox]:not([sandbox=""]) {
+  display: none !important;
+}
