@@ -25,6 +25,16 @@ photos:
 - 2022 회고록도 적으려는 생각은 12월 중순부터 하였으나, 이 역시 미루다보니 2022을 마무리짓는 날짜까지 미루어져 일단 글을 쓰려고 책상에 앉아있습니다.
 - 잘쓰기 위해서 맘만먹고 회고를 하지 않는것보다는, 잘 쓰지 못해도 글을 쓰는게 좋다고 생각하여, 2022 회고록은 부담없이 글을 써 내려가볼까 합니다.
 
+
+### 이전의 회고록들
+> 2021년에는 월, 분기별로 적은 회고록은 존재합니다.  
+
+- [2020 회고록](https://unluckyjung.github.io/my/2021/01/07/Retrospective_of_2020/)
+- [2021 1월, 2월 회고록](https://unluckyjung.github.io/my/2021/03/01/Retrospective-of-Jan-Feb/)  
+- [2021 2분기 회고록](https://unluckyjung.github.io/my/2021/07/03/Retrospective-of-second-quater/)
+- [2021 3분기 회고록](https://unluckyjung.github.io/my/2021/10/03/Retrospective-of-third-quater/)
+
+
 ---
 
 ## 2022 요약
