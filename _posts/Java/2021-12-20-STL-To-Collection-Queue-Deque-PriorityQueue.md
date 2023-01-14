@@ -83,6 +83,25 @@ if(q.isEmpty()){
 }
 ```
 
+## kotlin
+
+```kotlin
+val q: Queue<Int> = LinkedList()
+q.add(10)
+q.add(20)
+
+println(q.element())    // 10
+
+q.remove()
+println(q.element())    // 20
+
+q.clear()
+
+if (q.isEmpty()) {
+    println("empty")
+}
+```
+
 ---
 
 # Deque
@@ -135,6 +154,21 @@ if(dq.isEmpty()){
 }
 ```
 
+## kotlin
+
+```kotlin
+val dq: Deque<Int> = LinkedList()
+dq.add(20) // [20]
+dq.addFirst(10) // [10,20]
+dq.addLast(30) // [10,20,30]
+
+println(dq.first)   // 10
+println(dq.last)    // 30
+
+dq.removeFirst() // [20,30]
+println(dq.first)   // 20
+```
+
 ---
 
 # PriorityQueue
@@ -178,6 +212,8 @@ System.out.println(pq.isEmpty());   // (true)
 ## 기본 정렬 구조
 > Cpp의 경우에는 기본이 **MaxHeap**, java, kotlin 의 경우에는 **MinHeap** 으로 작동한다.
 
+### cpp
+
 ```cpp
 priority_queue<int, vector<int>> pq;    // Max Heap
 pq.push(10);
@@ -185,12 +221,16 @@ pq.push(7);
 cout << pq.top() << "\n"; // (10)
 ```
 
+### java
+
 ```java
 PriorityQueue<Integer> pq = new PriorityQueue<>();  // Min Heap
 pq.offer(10);
 pq.offer(7);
 System.out.println(pq.peek()); // (7)
 ```
+
+### kotlin
 
 ```kotlin
 val pq = PriorityQueue<Int>()
@@ -202,6 +242,8 @@ println(pq.element())   // (7)
 ## 역순 정렬
 > cpp Max to Min
 
+### cpp
+
 ```cpp
 priority_queue<int, vector<int>, greater<int>> pq;  // Min Heap으로 변경
 pq.push(10);
@@ -209,6 +251,7 @@ pq.push(7);
 cout << pq.top() << "\n"; // (7)
 ```
 
+### java
 > java Min to Max
 
 ```java
@@ -217,6 +260,8 @@ pq.offer(10);
 pq.offer(7);
 System.out.println(pq.peek()); // (10)
 ```
+
+### kotlin
 
 ```kotlin
 val pq = PriorityQueue<Int>(Comparator.reverseOrder())

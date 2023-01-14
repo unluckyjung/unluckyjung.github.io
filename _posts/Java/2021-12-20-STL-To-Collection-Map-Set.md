@@ -31,7 +31,6 @@ if(used.find(3) != used.end()) // keyCheck
 
 ### java 
 
-
 ```java
 Map<Integer, Boolean> m = new HashMap<>();
 Map<Integer, Integer> m = new TreeMap<>(); // key기준으로 정렬
@@ -39,6 +38,16 @@ Map<Integer, Integer> m = new TreeMap<>(); // key기준으로 정렬
 used.put(key, value); // input
 used.get(key); // output
 if(used.containsKey(key)); // keyCheck
+```
+
+### kotlin
+
+```kotlin
+val m = mutableMapOf<Int, Int>()
+m[key] = value
+
+m[key]
+if(m.containsKey(key))
 ```
 
 ## 순회하기
@@ -103,6 +112,19 @@ Maps can be viewed as Collections (of keys, values, or pairs), and this fact is 
 - [공식문서 링크](https://docs.oracle.com/javase/8/docs/technotes/guides/collections/designfaq.html#a14)
 - Map의 경우 Key와 value를 쌍으로 저장하기 떄문에, Collection 인터페이스의 의미가 모호해진다는 문제가 있기 때문입니다.
 
+
+### kotlin
+
+```kotlin
+val m = mutableMapOf(
+    1 to "apple",
+    2 to "banana",
+)
+m.forEach { (key, value) ->
+    println("key = $key, value $value")
+}
+```
+
 ---
 
 ## 없는 값에 접근하는 경우
@@ -161,6 +183,48 @@ class Solution {
 - `getOrDefault()` 를 이용해 공수를 좀 더 줄일 수 있습니다.
 
 
+### kotllin
+
+```kotlin
+private fun mapGetOrDefault() {
+    val m = mutableMapOf<Int, Int>()
+    m[1] = m.getOrDefault(1, 0) + 10
+    m[1] = m.getOrDefault(1, 0) + 20
+    println(m[1])   // 30
+}
+```
+
+> `Map<T, List<T>>` 형태를 를 다루는 경우
+
+```kotlin
+private fun mapList() {
+    val m = mutableMapOf(
+        3 to mutableListOf(30)
+    )
+
+    m[0]?.add(0) ?: run {
+        m[0] = mutableListOf(0)
+    }
+
+    m[1]?.let {
+        it.add(10)
+    } ?: run {
+        m[1] = mutableListOf(10)
+    }
+
+    // 가독성은 아래가 좋지만, m[1]?.add 와 같이 호출해야한다.
+    // if null check는 다른 스레드에서 값을 변경할 수 있기 때문이다.
+    if (m[2].isNullOrEmpty()) {
+        m[2] = mutableListOf(20)
+    } else {
+        m[2]?.add(20)
+    }
+
+    println(m)  // {3=[30], 0=[0], 1=[10], 2=[20]}
+}
+```
+
+
 ---
 
 # Set
@@ -184,7 +248,6 @@ cout << s.size() << "\n"; // 0
 
 ### java
 
-
 ```java
 Set<Integer> s = new HashSet<>();
 s.add(1);
@@ -196,6 +259,55 @@ if (s.contains(1)) {
 
 s.remove(1);
 System.out.println(s.size());   // 0
+```
+
+### kotlin
+
+```kotlin
+fun basicSet() {
+    val s = mutableSetOf<Int>()
+    s.add(5)
+    s.add(3)
+    s.add(10)
+    s.add(7)
+
+    println(s.first())  // 5
+    println(s.last())   // 7
+
+
+    val sortedSet = s.toSortedSet()
+    println(sortedSet.first()) // 3
+    println(sortedSet.last()) // 10
+
+    val sortedSet2 = sortedSetOf<Int>()
+    sortedSet2.add(10)
+    sortedSet2.add(5)
+    println(sortedSet2.first()) // 5
+
+    if (s.contains(3)) {
+        println("exist")
+    }
+    s.remove(1)
+}
+```
+
+```kotlin
+data class SetMember(
+    val age: Int,
+    val grade: String,
+)
+
+fun main() {
+    val s = sortedSetOf<SetMember>(
+        compareBy ({ it.age }, {it.grade})
+    )
+    s.add(SetMember(5, "A"))
+    s.add(SetMember(10, "B"))
+    s.add(SetMember(1, "C"))
+    s.add(SetMember(1, "A"))
+
+    println(s.first())  //  SetMember(age=1, grade=A)
+}
 ```
 
 ## Array to Set
@@ -228,9 +340,22 @@ Set<Integer> set = new HashSet<>(list);
 
 - List인 경우 심플하게 해결이 되는데, 좀 아쉬운 부분입니다.
 
+### kotlin
+
+```kotlin
+// array to set
+val array = arrayOf(3, 1, 5, 7)
+val set = array.toSet()
+
+// list to set
+val list = mutableListOf(3, 1, 5, 7)
+val set = list.toSet()
+```
+
 ## MultiSet
 
 ### cpp
+
 ```cpp
 multiset<int> ms;
 
@@ -249,6 +374,7 @@ cout << ms.size() << "\n"; // 1;
 ```
 
 ### java
+
 ```java 
 // 없음 직접 구현해줘야함
 Map<Integer, List<Integer>> ms = new TreeMap<>();
@@ -259,5 +385,18 @@ ms.put(1, Arrays.asList(1));
 - java에서 `MultiSet`은 표준 Collection 으로 제공하지 않습니다.
 - `Guava` 같은 [외부 라이브러리를 쓰는 수밖에 없습니다.](https://www.baeldung.com/guava-multiset)
 
+### kotlin
+
+```kotlin
+fun main() {
+    val multiset = TreeMap<Int, MutableList<Int>>()
+
+    multiset[2] = mutableListOf(20)
+    multiset[1] = mutableListOf(10)
+    multiset[1]?.add(11)
+
+    println(multiset) // {1=[10, 11], 2=[20]}
+}
+```
 
 ---
