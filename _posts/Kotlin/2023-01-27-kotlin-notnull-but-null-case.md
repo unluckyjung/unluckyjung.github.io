@@ -76,7 +76,7 @@ class ErrorTestController {
 
 ### 일반적인 에러가 나는 요청
 
-```console
+```kotlin
 GET http://localhost:8080/api/v1/error/list-empty-string
 Content-Type: application/json
 
@@ -94,7 +94,7 @@ Content-Type: application/json
 
 ### 문제가 되는 Request
 
-```console
+```kotlin
 POST http://localhost:8080/api/v1/post/test1
 Content-Type: application/json
 
@@ -140,13 +140,83 @@ class Goodall(val name: String)
 - `@NotNull` 어노테이션에 의존적인 형태인것을 볼수 있습니다.
 - 즉, `@NotNull` 을 통한 null validition 이 되기전에 null 이 삽입된것으로 보입니다.
 
-> `2023-01.26` 작성. 내부코드를 열어보고, kotlin + spring 에서의 동작과정을 정리한뒤 수정 예정
+### 실제로 java reflection 을 사용하는 경우
+> NotNull 이지만, Null 이 차있게 됩니다.
+
+```kotlin
+class ReflectionMember(
+    val name: String
+)
+
+fun main() {
+    javaReflection()
+}
+
+private fun javaReflection() {
+    val clazzConstructor = ReflectionMember::class.java.getDeclaredConstructor(String::class.java)
+    val member = clazzConstructor.newInstance("goodall")
+
+    println(member.name)    // goodall
+
+    val name = ReflectionMember::class.java.getDeclaredField("name")
+    name.isAccessible = true
+    name.set(member, null) // <== null 로 할당
+
+    println(member.name)    // null
+}
+```
+
+![image](https://user-images.githubusercontent.com/43930419/214896609-132365ae-263f-4d91-9330-423bd7c23cf6.png)
+
+
+- **java** reflection 을 사용하는 경우, `val` 이지만 [값이 변경](https://unluckyjung.github.io/java/2022/02/04/java-reflection-change-final-value/) 되고, `String` 이지만 **null 이 할당** 되는것을 볼 수 있습니다.
+
+
+> Generic type arguments, varargs, and array elements nullability are not supported yet, but should be in an upcoming release. See this discussion for up-to-date information.
+
+- 실제로 [spring docs](https://docs.spring.io/spring-framework/docs/current/reference/html/languages.html#kotlin-null-safety) 의 kotlin null-safety 를 언급한 내용에 따르면 list 형태의 경우에는 아직 null-safe 가 지원되지 않는다고 명시되어 있습니다.
+
+> `2023-01-26` 작성. 내부코드를 열어보고, kotlin + spring 에서의 동작 과정을 정리한뒤 수정 예정
+
+### List 형태가 아닌 단일값인 경우
+
+```kotlin
+data class TestDto(
+    val age: Int,
+)
+
+// Request
+{
+  "age": null,
+}
+```
+
+<img width="882" alt="image" src="https://user-images.githubusercontent.com/43930419/214899612-bc003033-8245-4a16-9559-e04d3049c6f6.png">
+
+- Number 형태(Int, Long)가 `""` or `null` 로 요청이 오는경우, `0` 으로 자동매핑 해줍니다.
+
+## String 단일
+- `string` 을 받아야 하는데 명시적인 요청으로 `null` 이 오는 경우에는, 매핑단계에서 json 파싱에러가 발생합니다.
+
+```kotlin
+data class TestDto(
+    val name: String,
+)
+
+// Request
+{
+  "name": null,
+}
+```
+
+>  "org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Instantiation of [simple type, class com.example.mvc.controller.TestDto] value failed for JSON property name due to missing (therefore NULL) value for creator parameter name which is a non-nullable type;
+
 
 ---
 
 
 ### `List<String>`
-> `Long` 일때랑 동일한 문제가 발생 합니다.
+> `List<Long>` 과 동일한 문제가 발생 합니다.
 
 ```kotlin
 // Request
@@ -162,7 +232,7 @@ data class TestDto(
 ![image](https://user-images.githubusercontent.com/43930419/212967560-0b5a91d5-e3f1-4800-999b-bd22608e12ca.png)
 
 
-- 3번쨰 element 가 null 인것을 확인할 수 있습니다.
+- 3번째 element 가 **null** 인것을 확인할 수 있습니다.
 
 ---
 
@@ -225,10 +295,10 @@ companion object {
 
 ## Conclusion
 - Kotlin 에서 NotNull 이라고해서, 완벽하게 NotNull 이 보장되지는 않는다.
-- 리플랙션(추측)이 사용되는 라이브러리, 프레임워크의 경우에는 NotNull Type 임에도 null 이 채워질 수 있음을 고려하고 있자.
+- java 리플랙션이 사용되는 라이브러리, 프레임워크의 경우에는 NotNull Type 임에도 null 이 채워질 수 있음을 고려하고 있자.
 
 ---
 
 ## Reference
+- https://docs.spring.io/spring-framework/docs/current/reference/html/languages.html#kotlin-null-safety
 - https://discuss.kotlinlang.org/t/null-safety-and-java-reflection/8525/17
-
