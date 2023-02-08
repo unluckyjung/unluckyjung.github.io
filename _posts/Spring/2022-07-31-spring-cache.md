@@ -107,6 +107,62 @@ fun cachePut2(name: String) {
 - 이경우에는 `@CachePut` 을 이용하고, value에 업데이트 하고 싶은 캐시테이블 이름을 넣어주면 됩니다.
 - 또한, **condition** 과 같은 옵션을 넣어서, 캐싱에 필요한 조건식을 같이 넣어줄 수 있습니다.
 
+---
+
+## 캐싱 조건
+
+### condition
+> 특정 조건일 경우 캐싱
+
+```kotlin
+class Request(
+    val name: String,
+    val age: Int,
+    val type: CacheType = CacheType.NON,
+) {
+    fun isNeedCache(): Boolean {
+        return type == CacheType.YES && name == "goodall"
+    }
+}
+
+@Cacheable(value = ["cacheTest5"], key = "#req.name", condition = "#req.name != 'goodall'")
+fun cachedWithCondition(req: Request): Response {
+    Counter.countUp()
+    return Response(req.name)
+}
+
+@Cacheable(value = ["cacheTest6"], key = "#req.name + #req.type", condition = "#req.isNeedCache() == true")
+fun cachedWithConditionFun(req: Request): Response {
+    Counter.countUp()
+    return Response(req.name)
+}
+```
+
+- `condition` 을 통해서 캐싱 조건을 줄 수 있습니다.
+- 함수를 이용해서도 조건걸 처리가 가능합니다.
+
+### unless
+> 캐싱되지 않을 조건
+
+```kotlin
+@Cacheable(value = ["cacheTest7"], key = "#req.name", unless = "#req.name.length() > 10")
+fun cachedWithUnless(req: Request): Response {
+    // #req.isNeedCache().not() 와 같이 kotlin 에서만 제공하는 함수(not())는 사용불가 
+    // req.type == CacheType.NON 와 같이 Enum 을 주는 경우도 사용불가.
+
+    Counter.countUp()
+    return Response(req.name)
+}
+```
+
+- 특정 조건의 경우, 캐싱을 원하지 않는다면 `unless` 를 이용해 구분이 가능합니다.
+- 주의할점은 조건으로 `Enum` 을 주는 경우, `SpEL` 을 통해 해석하지못해 에러가 발생하게 됩니다.
+- 해당 경우에는 `req.isNeedCache()` 와 같이 조건문으로 풀어서 해결할 수 있습니다.
+- 또한 `SpEL` 은 기본적으로 자바 문법을 기반으로 해석할 수 있으므로, kotlin 에서만 제공하는 문법은 사용할 수 없습니다. 
+- 다만 어느정도는 지원이 되는지 `req.name.length()` => `req.name.length` 정도는 해석하고 있습니다. 이부분은 `SpEL` 을 좀더 파보아야겠습니다. `2023-02-08`
+
+---
+
 
 ## 캐시 삭제
 > `@CacheEvict` 을 이용합니다.
