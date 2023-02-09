@@ -21,7 +21,7 @@ tags:
 - `@EnableCaching` + `@Cacheable` 를 이용해 캐시를 적용하는법을 알아봅니다.
 - `@CachePut` 을 이용해 캐시를 업데이트 해봅니다.
 - `@CacheEvit` 을 이용해 캐시를 삭제하는 방법을 알아봅니다.
-  - 스케쥴링 옵션을 넣어서 작동으로 삭제도 해봅니다.
+- 스케쥴링 옵션을 넣어서 작동으로 삭제도 해봅니다.
 
 ---
 
@@ -107,6 +107,43 @@ fun cachePut2(name: String) {
 - 이경우에는 `@CachePut` 을 이용하고, value에 업데이트 하고 싶은 캐시테이블 이름을 넣어주면 됩니다.
 - 또한, **condition** 과 같은 옵션을 넣어서, 캐싱에 필요한 조건식을 같이 넣어줄 수 있습니다.
 
+
+### 객체를 기반으로 한 캐싱
+
+```kotlin
+class Request(
+    val name: String,
+    val age: Int,
+) 
+
+@Cacheable(cacheNames = ["cacheTest"], key = "#req")
+fun cachedObjectFun2(req: Request): Response {
+    Counter.countUp()
+    return Response(req.name)
+}
+```
+
+- 객체를 그대로 캐싱하는 경우, 해시코드 값을 기반으로 캐싱을 진행하게 됩니다.
+
+```kotlin
+@DisplayName("새로운 객체이면, spel 기반이라 같은 값을 주어도 캐싱된 결과가 반환되지 않는다.")
+@Test
+fun cacheObjectTest3() {
+    // data class 인경우, hashCode 가 같아서 캐싱가능 (예시의 Request 는 일반 class)
+    val req = Request("goodall", 31)
+    val cachedValue = dummyService.cachedObjectFun2(req)
+
+    for (i in 1..3) {
+        val newReq = Request("goodall", 31)
+        cachedValue shouldNotBe dummyService.cachedObjectFun2(newReq)
+    }
+    Counter.count shouldBe 4
+}
+```
+
+- 따라서 데이터를 동일하게 담고 있어도, 구현이 되어있지 않다면, 캐싱된 결과를 반환하지 않게 됩니다.
+- 객체 기반으로 캐싱을 원하는 경우, `equals()`, `hashCode()` 를 Request 에 구현 해주거나, kotlin 의 경우에는 data class 를 사용하시면 되겠습니다.
+
 ---
 
 ## 캐싱 조건
@@ -139,7 +176,7 @@ fun cachedWithConditionFun(req: Request): Response {
 ```
 
 - `condition` 을 통해서 캐싱 조건을 줄 수 있습니다.
-- 함수를 이용해서도 조건걸 처리가 가능합니다.
+- 함수를 이용해서도 조건절 처리가 가능합니다.
 
 ### unless
 > 캐싱되지 않을 조건
