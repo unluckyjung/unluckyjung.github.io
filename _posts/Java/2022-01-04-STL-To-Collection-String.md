@@ -3,17 +3,21 @@ title: STL to Collection (String)
 date: 2022-01-04-20:15
 categories:
 - Java
+- Kotlin
 
 tags:
 - Java
+- Kotlin
 - Collection
 
 ---
 
 ## STL to Collection (4)
-> cpp에서 사용하는 string 관련기능을 java로 치환해 봅니다.
+> cpp에서 사용하는 string 관련기능을 java, kotlin 로 치환해 봅니다.
 
-### Java 문자열 관련 객체들에 대해 알아둘점
+### Java, Kotlin 문자열 관련 객체들에 대해 알아둘점
+
+> java
 
 ```java
 String str = "JungYoonsung"; // immutable + user String constant pool 
@@ -25,6 +29,13 @@ String str1 = new String("JungYoonsung"); // immutable
 StringBuilder stringBuilder = new StringBuilder(str); // mutable + thread unsafe
 StringBuffer stringBuffer = new StringBuffer(str); // mutable + thread safe
 // 수행 속도는 StringBuiler쪽이 뛰어나다. PS 단에서는 StringBuilder를 사용할것
+```
+
+> kotlin
+
+```kotlin
+val str = "JungYoonsung"
+val stringBuilder = StringBuilder("JungYoonsung")
 ```
 
 - 불변, String constatnt pool, 스레드 세이프 한 부분들을 고려해야 합니다.
@@ -67,7 +78,26 @@ if (!str.contains("null")) {
 str += "UnlcukyJung"; // "JungYoonsungUnlcukyJung"
 ```
 
-## 문자열 대소 비교시 (java)
+### kotlin
+
+```kotlin
+var str = "JungYoonsung"
+
+println(str.substring(4)) // Yoonsung
+println(str.substring(4, 5)) // Y (두번째 인자는 닫힌 index 이다.)
+println(str.indexOf("Yoon")) // 4
+
+if (str.contains("null").not()) {
+    println("NOT FOUND") // "NOT FOUND"
+}
+
+str += "UnlcukyJung"
+println(str) // "JungYoonsungUnlcukyJung"
+```
+
+
+
+## 문자열 대소 비교시 (java, kotlin)
 
 ```java
 String str = "aaa";
@@ -79,6 +109,23 @@ System.out.println(str.compareTo("aaa"));   // 0
 
 System.out.println(str.compareTo("aa"));   // 1 (1이상의 값)
 System.out.println(str.compareTo("a"));   // 2 (1이상의 값)
+```
+
+```kotlin
+val str = "aaa"
+
+println(str.compareTo("bbb")) // -1
+println(str < "bbb")  // true
+
+println(str.compareTo("bb")) // -1
+println(str.compareTo("aaaa")) // -1
+
+println(str.compareTo("aaa")) // 0
+
+println(str.compareTo("aa")) // 1 (1이상의 값)
+println(str > "aa")  // true
+
+println(str.compareTo("a")) // 2 (1이상의 값)
 ```
 
 ---
@@ -100,6 +147,18 @@ StringBuilder strBuilder = new StringBuilder("JungYoonsung");
 System.out.println(str.charAt(3));  // g
 System.out.println(strBuilder.charAt(3)); // g
 ```
+
+### kotlin
+
+```kotlin
+val str = "JungYoonsung"
+val strBuilder = StringBuilder("JungYoonsung")
+
+println(str[3]) // g
+println(strBuilder[3]) // g
+```
+
+- kotlin 의 경우에는 cpp 와 마찬가지로 `[]` 로 접근할 수 있습니다.
 
 ---
 
@@ -134,6 +193,41 @@ for (int i = 0; i < str.length(); ++i) {
     System.out.println(strBuilder.charAt(i));
 }
 ```
+
+### kotlin
+
+```kotlin
+val str = "JungYoonsung"
+val strBuilder = StringBuilder(str)
+
+for (ch in str.toCharArray()) {
+    println(ch)
+}
+println()
+
+for (ch in str) {
+    println(ch)
+}
+println()
+
+for (i in 0 until str.length) {
+    println(str[i])
+    println(strBuilder[i])
+}
+println()
+
+for (i in str.indices) {
+    println(str[i])
+    println(strBuilder[i])
+}
+println()
+
+str.forEachIndexed { index, ch ->
+    println("index: $index, value: $ch")
+}
+```
+
+- kotlin 의 경우에는 `forEachIndexed` 와 `indices` 를 이용하여 인덱스 기반의 조회를 쉽게 할 수 있습니다.
 
 ---
 
@@ -174,6 +268,16 @@ public class Main {
 }
 ```
 
+### kotlin
+
+```kotlin
+val phoneNumber = "123-456-789"
+val split = phoneNumber.split("-")
+split.forEach {
+    println(it) // {123, 456, 789}
+}
+```
+
 ---
 
 ## 문자열 뒤집기
@@ -192,6 +296,14 @@ cout << str;  // "cdba"
 StringBuilder sb = new StringBuilder("abcd");
 sb.reverse();
 System.out.println(sb); // "dcba"
+```
+
+### kotlin
+
+```kotlin
+val sb = StringBuilder("abcd")
+sb.reverse()
+println(sb) // "dcba"
 ```
 
 ---
@@ -215,6 +327,17 @@ int intNumber = Integer.parseInt(strNumber);
 System.out.println(intNumber);  // (int) 123
 System.out.println(Integer.toString(intNumber));  // (string) "123"
 ```
+
+### kotlin
+
+```kotlin
+val strNumber = "0123"
+val intNumber = strNumber.toInt()
+println(intNumber) // (int) 123
+
+println(intNumber.toString()) // (string) "123"
+```
+
 ---
 
 ## 변환, 치환, 삭제
@@ -248,10 +371,38 @@ StringBuilder strBuilder = new StringBuilder("abcdef");
 System.out.println(str.substring(0, 4));    // abcd
 System.out.println(str.replace("ef", ""));  // abcd
 System.out.println(strBuilder.deleteCharAt(4)); // index 4만 삭제  abcd(e)f    // abcdf
-
-String str = "cd";
-System.out.println(str.replace("d", "zzz"));  // czzz
 ```
+
+### kotlin
+
+```kotlin
+// String
+val str1 = "abcdef"
+
+println(str1.substring(0, 4)) // abcd
+
+println(str1.replace("ef", "")) // abcd
+println(str1.removeRange(2, 4)) // ab(cd)ef     // abef    // 두번쨰 인자는 inclusive
+
+// StringBuilder
+var strBuilder = StringBuilder("abcdef")
+println(strBuilder.deleteCharAt(4)) // index 4 만 삭제  abcd(e)f    // abcdf
+
+strBuilder = StringBuilder("abcdef")
+println(strBuilder.delete(4, 6)) // abcd(ef)    // abcd
+
+strBuilder = StringBuilder("abcdef")
+println(strBuilder.delete(4, 100)) // abcd(ef)    // abcd
+
+strBuilder = StringBuilder("abcdef")
+println(strBuilder.deleteAt(4)) // index 4만 삭제  abcd(e)f    // abcdf
+
+val str2 = StringBuilder("cd")
+println(str2.replace(Regex("d"), "zzz"))    // czzz
+```
+
+- kotlin 의 String 에서는 `removeRange` 를 지원합니다.
+- StringBuilder replace 사용시, target String 은 Regex 로 주어야 합니다.
 
 ---
 
@@ -286,6 +437,32 @@ System.out.println(str.toUpperCase());  // "ABCD"
 System.out.println(str.toLowerCase());  // "abcd"
 ```
 
+```kotlin
+val str = "Abcd"
+
+if (str[0].isLetter()) {
+    println("alpha") // alpha
+}
+
+if (str[0].isUpperCase()) {
+    println("upperCase") // upperCase
+}
+
+println(str[0].lowercase()) // A-> a    // a
+println(str[0].lowercaseChar()) // A-> a    // a
+
+println(str.uppercase()) // "ABCD"
+println(str.lowercase()) // "abcd
+
+val numStr = "0A"
+println(numStr[0].isDigit())  // true
+numStr.forEach {
+    println(it.isLetterOrDigit())
+}
+```
+
+- `kotlin` 의 경우 `Character` 를 사용하지 않아도 됩니다.
+
 ---
 
 ## 정규식 관련
@@ -313,6 +490,36 @@ System.out.println(pattern.matcher("JungYoonSung").matches());  // true
 System.out.println(pattern.matcher("unluckyjung").matches());   // false
 ```
 
+### kotlin
+
+```kotlin
+val str = "JungYoonSung"
+println(str.matches(Regex("JungYoonSung"))) // true
+println(str.matches(Regex("unluckyJung"))) // false
+
+val numberRegex = Regex("\\d+")
+
+val str1 = "A1B2"
+println(numberRegex.containsMatchIn(str1))  // true (매칭되는 1, 2이 있음)
+println(numberRegex.matches(str1))  // false
+
+val matchNumber = numberRegex.find(str1)
+println(matchNumber?.value) // 앞의 1만 추출 // 1
+
+val matchNumbers = numberRegex.findAll(str1)
+matchNumbers.forEach {
+    println(it.value)   // [1,2]
+}
+```
+
+- kotlin 의 경우 java 보다 훨씬 편하게 정규식을 다룰 수 있습니다.
+- `containsMatchIn` 을 통해 정규식에 맞는 케이스가 하나라도 있는지 확인할 수 있습니다.
+- `matches` 를 통해 완벽히 매칭되는 케이스가 있는지 확인할 수 있습니다.
+- `find` 를 통해서 가장 빨리 매칭되는 결과를 찾을 수 있습니다.
+- `findAll` 를 통해서 매칭되는 모든 결과를 찾을 수 있습니다.
+
+> kotlin 정규식을 다루는 방법은 다른 포스팅으로 작성할 예정입니다. `23.02.12`
+
 ---
 
 ## Reference
@@ -320,3 +527,4 @@ System.out.println(pattern.matcher("unluckyjung").matches());   // false
 - [StringBuilder](https://docs.oracle.com/javase/8/docs/api/index.html?java/util/regex/package-summary.html)
 - [StringBuffer](https://docs.oracle.com/javase/8/docs/api/index.html?java/util/regex/package-summary.html)
 - [matches](https://docs.oracle.com/javase/8/docs/api/index.html?java/util/regex/package-summary.html)
+- [kotlin regex](https://codechacha.com/ko/kotlin-how-to-use-regex/)
