@@ -3,9 +3,11 @@ title: STL to Collection (Stack, LinkedList)
 date: 2022-01-05-23:15
 categories:
 - Java
+- Kotlin
 
 tags:
 - Java
+- Kotlin
 - Stack
 - LinkedList
 - Collection
@@ -13,11 +15,11 @@ tags:
 ---
 
 ## STL to Collection (6)
-> cpp에서 사용하는 Stack, LinkedList 관련기능을 java로 치환해 봅니다.
+> cpp에서 사용하는 Stack, LinkedList 관련기능을 java, kotlin 로 치환해 봅니다.
 
 ---
 
-# Stack
+## Stack
 
 ### cpp
 
@@ -84,7 +86,7 @@ if (s.isEmpty()) {
 
 ---
 
-# LinkedList
+## LinkedList
 
 <br>
 
