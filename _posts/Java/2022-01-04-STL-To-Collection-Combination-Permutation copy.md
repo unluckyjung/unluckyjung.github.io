@@ -39,7 +39,7 @@ int main() {
 }
 ```
 
-```
+```console
 1 2 3 
 1 3 2 
 2 1 3 
@@ -87,7 +87,7 @@ public class Permutation {
 }
 ```
 
-```
+```console
 1 2 3 
 1 3 2 
 2 1 3 
@@ -97,6 +97,47 @@ public class Permutation {
 ```
 
 - java의 경우 따로 메소드를 제공하지 않아서 직접 구현해주어야 합니다.
+
+### kotlin
+
+```kotlin
+private fun printPermutation() {
+    val list = listOf(1, 2, 3, 4)
+
+    permutation(
+        list = list,
+        used = MutableList(list.size) { false },
+        selected = MutableList(list.size) { -1 },
+        count = 0
+    )
+}
+
+private fun permutation(list: List<Int>, used: MutableList<Boolean>, selected: MutableList<Int>, count: Int) {
+    if (count == list.size) {
+        printSelected(selected)
+        return
+    }
+
+    for (index in list.indices) {
+        if (used[index]) continue
+
+        used[index] = true
+        selected[count] = list[index]
+        permutation(list, used, selected, count + 1)
+        used[index] = false
+    }
+}
+
+private fun printSelected(nums: List<Int>) {
+    for (num in nums) {
+        print("$num ")
+    }
+    println()
+}
+```
+
+- tip: `MutableList(list.size) { false }` 으로 원하는 사이즈만큼 디폴트 값을 채운채 초기화 할 수 있습니다.
+
 
 ---
 
@@ -132,7 +173,7 @@ int main() {
 - 저의 경우 cpp의 경우에는 `next_permutation` 를 이용해 작성합니다.
 - 순서도 맞추고 싶은경우 `prev_permutation`을 이용하면됩니다.
 
-```
+```console
 3 4 
 2 4 
 2 3 
@@ -195,3 +236,42 @@ public class Combination {
 - 선택하거나, 선택하지 않는 작업을 재귀적으로 반복합니다.
 - 이때 항상 **인덱스는 증가**시킵니다.
 - 기저 조건은 선택한 개수가 원하는 개수와 같을때 or 배열 인덱스를 넘어가려고 할때로 잡습니다. 두 순서를 주의해야합니다. 
+
+### kotlin
+
+```kotlin
+private fun printCombination() {
+    val list = listOf(1, 2, 3, 4)
+
+    combination(
+        list = list,
+        used = MutableList(list.size) { false },
+        wantCount = 2,
+        selectedCount = 0,
+        index = 0,
+    )
+}
+
+private fun combination(list: List<Int>, used: MutableList<Boolean>, wantCount: Int, selectedCount: Int, index: Int) {
+    if (selectedCount == wantCount) {
+        printSelected(list, used)
+        return
+    }
+    if (index == list.size) return
+
+    used[index] = true
+    combination(list, used, wantCount, selectedCount + 1, index + 1)
+    used[index] = false
+    combination(list, used, wantCount, selectedCount, index + 1)
+}
+
+private fun printSelected(nums: List<Int>, used: List<Boolean>) {
+
+    nums.forEachIndexed { index, num ->
+        if (used[index]) {
+            print("$num ")
+        }
+    }
+    println()
+}
+```
