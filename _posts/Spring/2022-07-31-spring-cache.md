@@ -144,6 +144,17 @@ fun cacheObjectTest3() {
 - 따라서 데이터를 동일하게 담고 있어도, 구현이 되어있지 않다면, 캐싱된 결과를 반환하지 않게 됩니다.
 - 객체 기반으로 캐싱을 원하는 경우, `equals()`, `hashCode()` 를 Request 에 구현 해주거나, kotlin 의 경우에는 data class 를 사용하시면 되겠습니다.
 
+### 파라메터가 없는 경우를 캐싱하는방법
+
+```Kotlin
+@Cacheable(value = ["cacheTest8"], key = "#root.method.name")
+fun cacheNoParam() {
+}
+```
+
+- 종종 key 값이 마땅한것이 없지만, 캐싱한 결과를 내보내고 싶을 수 있습니다.
+- 이 경우에는 `key = "#root.method.name"` or `#root.methodName` 처럼 메서드 이름을 key 값으로 잡고, 처리해주면 됩니다.
+
 ---
 
 ## 캐싱 조건
@@ -230,6 +241,12 @@ fun eraseCache() {
 - `@Scheduled` 가 붙은 메서드는 파라메터를 가지면 안되고, public 해야한다는것에 주의해야합니다.
 - 예제의 경우 `allEntries = true` 옵션을 통해 `cacheTest3` 캐시에 담겨있던 정보를 1초 간격으로 전부 삭제하게 됩니다.
 
+
+---
+
+## 번외
+- [캐싱된 기능을 테스트 하는 방법](https://unluckyjung.github.io/spring/2023/02/11/spring-cache-test/)
+
 ---
 
 ## Conclusion
@@ -242,8 +259,9 @@ fun eraseCache() {
 ---
 
 ## Reference
+- https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/cache.html
 - https://www.baeldung.com/spring-cache-tutorial
 - https://stackoverflow.com/questions/8181768/can-i-set-a-ttl-for-cacheable
 - https://www.baeldung.com/spring-boot-evict-cache
-
+- https://stackoverflow.com/questions/48888760/cachable-on-methods-without-input-parameters
 
