@@ -146,7 +146,7 @@ fun cacheObjectTest3() {
 
 ### 파라메터가 없는 경우를 캐싱하는방법
 
-```Kotlin
+```kotlin
 @Cacheable(value = ["cacheTest8"], key = "#root.method.name")
 fun cacheNoParam() {
 }
