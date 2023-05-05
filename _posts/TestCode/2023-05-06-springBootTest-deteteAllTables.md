@@ -253,6 +253,11 @@ annotation class IntegrationTest
 
 ---
 
+## Github
+- 관련된 코드는 [이곳](https://github.com/unluckyjung/kotlin-spring-jpa-playground/tree/test/spring-boot-test/life-cycle)에서 볼 수 있습니다.
+
+---
+
 ## Conclusion
 - `AbstractTestExecutionListener` 를 이용해 테스트 시작 전후에 원하는 기능을 동작시킬 수 있다.
 - 테스트 격리를 위해서, 테스트 시작전/후로 모든 데이터를 삭제하는 기능을 구현해보았다.
