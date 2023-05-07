@@ -169,6 +169,54 @@ private lateinit var memberService: MemberService
 
 ---
 
+## 주의할점
+> 캐싱 TTL 로 인해서 테스트 격리가 보장되지 않을 수 있습니다
+
+```kotlin
+@Service
+class DummyService {
+
+    @Cacheable(value = ["cacheTest"], key = "#key")
+    fun cachedFun(key: String, other: String): String {
+        return other
+    }
+}
+```
+
+- 간단한 예시를 위해서, key 를 통해 캐싱하지만 결과값은 other 이라는 파라메터로 내보내는 기능을 만들어 주었습니다.
+
+```kotlin
+@IntegrationTest
+class CacheTest(
+    private val dummyService: DummyService,
+) {
+
+    private val sameKey = "unluckyjung"
+
+    @DisplayName("같은 캐시키 값을 넣으면, 다른 테스트에 영향을 줄 수 있다.")
+    @Test
+    fun test1() {
+        val result = dummyService.cachedFun(sameKey, "goodall")
+        result shouldBe "goodall"
+    }
+
+
+    @DisplayName("같은 캐시키 값을 넣으면, 다른 테스트에 영향을 줄 수 있다.")
+    @Test
+    fun test2() {
+        val result = dummyService.cachedFun(sameKey, "yoonsung")
+        result shouldBe "yoonsung"
+    }
+}
+```
+
+<img width="921" alt="image" src="https://user-images.githubusercontent.com/43930419/236660566-c7eff03c-da44-4a6e-9fea-8a5eda807543.png">
+
+- test2 가 돌아가는 시점에서, test1 의 캐싱 결과가 남아있어 올바른 테스트가 진행되지 않은것을 확인 할 수 있습니다.
+- 이런 상황에서는 테스트별로 key 값을 다르게 가져가거나, 캐싱 TTL 을 테스트내에서 조절하는 방법을 사용해야 합니다.
+
+---
+
 ## Conclusion
 - Spring 캐싱 동작 여부를 테스트용 모킹 도구를 통해서 테스트 해볼 수 있다.
 
