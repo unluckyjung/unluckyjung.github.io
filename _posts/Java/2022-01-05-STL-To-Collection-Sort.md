@@ -268,7 +268,7 @@ numbers.sorted().forEach {
 ## 객체, 구조체정렬
 
 ### java
-- 위에서 셜명한 방법인 `Comparator` 와 `static method`, `Comparable` 를 사용하는 방법이 있습니다. [STL to Collection (PriorityQueue) 에 적은 내용으로 대체합니다.](https://unluckyjung.github.io/java/2021/12/21/STL-To-Collection-Queue-Deque-PriorityQueue/#%EB%A7%8C%EB%93%A0-%EA%B5%AC%EC%A1%B0%EC%B2%B4-or-%EA%B0%9D%EC%B2%B4-%EC%A0%95%EB%A0%AC-%EA%B8%B0%EC%A4%80%EC%9D%84-%EC%84%B8%EC%9B%8C%EC%A3%BC%EA%B8%B0)
+- 위에서 셜명한 방법인 `Comparator` 와 `static method`, `Comparable` 를 사용하는 방법이 있습니다. [STL to Collection (PriorityQueue) 에 적은 내용으로 대체합니다.](https://unluckyjung.github.io/java/kotlin/2021/12/21/STL-To-Collection-Queue-Deque-PriorityQueue/)
 - 정렬 조건이 여러개인 경우는 [이 글](https://unluckyjung.github.io/java/2021/02/23/Java-Custom-Sort/)로 대체합니다.
 
 

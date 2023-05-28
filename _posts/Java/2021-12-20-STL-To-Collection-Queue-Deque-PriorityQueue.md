@@ -440,28 +440,32 @@ private fun maxHeap() {
 }
 ```
 
-- `compareValuesBy` 를 통해서, 간결하게 배교 우선순위를 정해 줄 수 있다.
+- `compareValuesBy` 를 통해서, 간결하게 비교 우선순위를 정해 줄 수 있다.
 
 
 > 정렬조건 만들어주기 `Comparator` 삽입
 
 ```kotlin
+// 1
 val pq = PriorityQueue(
     compareBy<Man> {
         it.age
     }
 )
 
+// 1
 val pq = PriorityQueue(
     compareBy<Man> ({it.age}, {it.grade})
 )
 
+// 2
 val pq = PriorityQueue(
     Comparator<Man> { m1, m2 ->
         m1.age.compareTo(m2.age)
     }
 )
 
+// 3
 val pq = PriorityQueue { m1: Man, m2: Man ->
     m1.age.compareTo(m2.age)
 }
