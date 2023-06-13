@@ -92,7 +92,7 @@ netstat -tnlp
 ![이미지](https://user-images.githubusercontent.com/43930419/88630187-c2838c80-d09f-11ea-8178-34bb326bad6e.png)
 
 ```shell
-ifconfing
+ifconfig
 ```
 
 ---
