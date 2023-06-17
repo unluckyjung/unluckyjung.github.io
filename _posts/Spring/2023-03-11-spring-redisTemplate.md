@@ -21,6 +21,7 @@ tags:
 ---
 
 ## 기본 설정
+- 자세한 설정은 [Github](https://github.com/unluckyjung/kotlin-spring-jpa-playground/tree/main/infra) 을 참고하시는것을 권장드립니다.
 
 ### Infra 설정
 
@@ -362,12 +363,152 @@ $ 127.0.0.1:6379> get string-object-key
 "{\"name\":\"yoonsung\",\"age\":30}"
 ```
 
+## 삭제
+
+```kotlin
+@DisplayName("valueOperations 를 이용해 key 에 매칭되는 redis 를 삭제할 수 있다.")
+@Test
+fun redisDeleteTest1() {
+    val valueOperations = stringRedisTemplate.opsForValue()
+    val key = "willBeDeleteKey"
+    val value = "goodall"
+
+    valueOperations[key] = value
+    valueOperations[key] shouldBe value
+
+    valueOperations.getAndDelete(key)
+    valueOperations[key] shouldBe null
+}
+
+@DisplayName("key 에 매칭되는 redis 를 삭제할 수 있다.")
+@Test
+fun redisDeleteTest2() {
+    val valueOperations = stringRedisTemplate.opsForValue()
+    val key = "willBeDeleteKey"
+    val value = "goodall"
+
+    valueOperations[key] = value
+    valueOperations[key] shouldBe value
+
+
+    redisTemplate.delete(key)   // redisTemplate 를 이용해 제거도 가능
+    // stringRedisTemplate.delete(key)  // 위와 동일한 기능
+
+    valueOperations[key] shouldBe null
+}
+
+@DisplayName("keys 에 매칭되는 redis 를 삭제할 수 있다.")
+@Test
+fun redisDeleteTest3() {
+    val valueOperations = stringRedisTemplate.opsForValue()
+    val willBeDeleteKey1 = "willBeDeleteKey1"
+    val willBeDeleteKey2 = "willBeDeleteKey2"
+    val key = "key"
+    val value = "goodall"
+
+    valueOperations[willBeDeleteKey1] = value
+    valueOperations[willBeDeleteKey2] = value
+    valueOperations[key] = value
+
+    stringRedisTemplate.delete(setOf(willBeDeleteKey1, willBeDeleteKey2))
+
+    valueOperations[willBeDeleteKey1] shouldBe null
+    valueOperations[willBeDeleteKey2] shouldBe null
+    valueOperations[key] shouldBe value
+}
+```
+
+- RedisTemplate 혹은 valueOperations 를 이용해 redis key, value 를 삭제할 수 있습니다.
+
+
+---
+
+## 테스트환경에서 주의할점
+> redis 에 저장하는 결과는 트랜잭션 롤백이 되지않음.
+
+- 테스트내에서 `@Transactional` 을 사용해도 redis 에 저장되는 데이터들은 기본적으로 롤백되지 않습니다.
+- 즉 테스트에서 저장한 데이터가 다른 테스트에 영향을 줄 수 있는 환경입니다. (멱등성 지켜지지 않음.)
+
+```kotlin
+@BeforeEach
+internal fun setUp() {
+    flushRedis()
+}
+
+@AfterEach
+internal fun tearDown() {
+    redisTemplate.connectionFactory?.connection?.flushAll()
+}
+
+private fun flushRedis() {
+    redisTemplate.connectionFactory?.connection?.flushAll()
+}
+```
+
+- 이 부분을 해결하기 위해 테스트 전, 후로 flushAll() 을 호출해, redis 내의 데이터를 비워주시는것을 권장 드립니다.
+
+---
+
+## [TIP] Redis cli 기본 명령어
+
+### 타입확인
+
+```console
+$ type {key}
+```
+
+### 저장
+
+```console
+$ set {key} {value} # key, value 를 저장
+$ mset {key} {value} [{key} {value} ...] # 여러 개의 key, value 를 한번에 저장
+$ setex {key} {seconds} {value} # key, seconds, value 저장 (seconds 이후 휘발)
+```
+
+### String 조회, 삭제
+
+```console
+$ keys * # 현재 저장된 키값들을 모두 확인 (부하가 심한 명령어라 운영중인 서비스에선 절대 사용하면 안됨)
+$ get {key} # 지정한 key 에 해당하는 value 를 가져옴
+$ mget {key} [{key} ...] # 여러 개의 key 에 해당하는 value 를 한번에 가져옴
+$ ttl {key} # key 의 만료 시간을 초 단위로 보여줌 (-1 은 만료시간 없음, -2 는 데이터 없음)
+$ pttl {key} # key 의 만료 시간을 밀리초 단위로 보여줌
+$ type {key} # 해당 key 의 value 타입 확인
+```
+
+```console
+$ del {key} [{key} ...] # 해당 key 들을 삭제
+```
+
+
+### Set 조회, 삭제
+
+```console
+$ smembers {key}
+$ srem {key} {member [{member} ...]}
+```
+
+### Hash 조회, 삭제
+
+```console
+$ hkeys {key} # 필드 조회
+$ hget {key} {field}
+$ hdel {key} {field} [{field} ...]
+```
+
+### 전체 키 삭제
+
+```console
+$ flushall
+```
+
 ---
 
 ## Conclusion
 - 세팅시에 hash 와 관련된 값들은 `StringRedisSerializer()` 를 명시적으로 넣어주어야한다.
-- String 사용시 `stringRedisTemplate` 를 용할 수 있다.
+- String 사용시 `stringRedisTemplate` 를 이용할 수 있다.
 - Object 형태를 직렬화하여 저장할시, `Jackson2JsonRedisSerializer` 와 `setObjectMapper(jacksonObjectMapper())` 를 명시적으로 넣어주어야 한다.
+- 테스트내에서 Redis 에 저장딘 데이터는 롤백되지 않는다.
 
 ---
 
