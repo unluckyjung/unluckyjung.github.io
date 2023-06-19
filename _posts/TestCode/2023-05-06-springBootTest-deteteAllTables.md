@@ -123,8 +123,8 @@ private fun getJdbcTemplate(testContext: TestContext): JdbcTemplate {
 }
 ```
 
-- `IntegrationTestExecuteListener` 자체는 빈으로 등록되지 않기 때문에 잔여데이터를 삭제하기 위한 의존성주입을 생성자로 받을수 없고습니다.
-- 또한 동작하고 있는 테스트 컨텍스트내의 데이터를 지워야하기때문에, 위와같은 방법으로 데이터 삭제를 위해 필요한 테스트 컨텍스트내 빈들을 얻었습니다.
+- `IntegrationTestExecuteListener` 자체는 빈으로 등록되지 않기 때문에 잔여데이터를 삭제하기 위한 의존성주입을 생성자로 받을수 없습니다.
+- 또한 동작하고 있는 테스트 컨텍스트내의 데이터를 지워야하기 때문에, 위와같은 방법으로 데이터 삭제를 위해 필요한 테스트 컨텍스트내 빈들을 얻었습니다.
 
 ```kotlin
 jdbcTemplate.execute("set FOREIGN_KEY_CHECKS = 0;")
@@ -248,7 +248,7 @@ annotation class TestEnvironment
 annotation class IntegrationTest
 ```
 
-> 참고로 본문에는 **SpringBootTest 수행중 리스너를 통한 동작 끼워넣기** 라고 적어두었지만, 스프링 관련 테스트컨텍스트를 사용하고 있는 모든테스트에서도 사용할수 있습니다. ex: `@@DataJpaTest` 다만 잔여데이터가 남는 테스트들은 보통 `SpringBootTest` 를 이용한 테스트이기때문에 타이틀을 위와 같이 해두었습니다.
+> 참고로 본문에는 **SpringBootTest 수행중 리스너를 통한 동작 끼워넣기** 라고 적어두었지만, 스프링 관련 테스트 컨텍스트를 사용하고 있는 모든테스트에서도 사용할수 있습니다. ex: `@DataJpaTest` 다만 잔여데이터가 남는 테스트들은 보통 `@SpringBootTest` 를 이용한 테스트이기때문에 블로그 타이틀을 위와 같이 해두었습니다.
 
 ![image](https://user-images.githubusercontent.com/43930419/236393807-46f783a9-0115-41d1-842d-dc62dc6a1247.png)
 

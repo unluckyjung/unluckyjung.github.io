@@ -12,7 +12,7 @@ tags:
 
 ---
 
-## Querydsl 사용시 SoftdDelete 된 엔티티가 조회가 되어버리는 이슈를 확인해봅니다.
+## Querydsl 사용시 SoftDelete 된 엔티티가 조회가 되어버리는 이슈를 확인해봅니다.
 > join 에 들어가는 엔티티에 대해서는 `@Where` 어노테이션이 동작하지 않는것을 알아봅니다.
 
 ---
@@ -236,7 +236,7 @@ fun findMembersByTeam2(teamId: Long): List<Member> {
 
 ![image](https://user-images.githubusercontent.com/43930419/238194246-26708e08-ae2e-4eef-8b60-0cb630af88a6.png)
 
-- softDelete 조건으로 따지는 `delted_at` 에 isNull 을 추가해주면 조건이 추가되어 걸러지는것을 확인할 수 있습니다. 
+- softDelete 조건으로 따지는 `delted_at` 에 isNull 을 추가 해주면 조건이 추가되어 걸러지는것을 확인할 수 있습니다. 
 
 
 ---

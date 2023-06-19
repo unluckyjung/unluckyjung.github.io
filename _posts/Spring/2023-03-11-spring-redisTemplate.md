@@ -191,7 +191,7 @@ fun setCacheTest() {
 
 - set 의 경우 `opsForSet()` 를 호출해서 Set 을 다를 수 있는 `valueOperations` 를 얻을 수 있습니다.
 - key 하나에 여러값을 담을 수 있습니다. 
-- 조회시에는 `members(key)` 를 통해서 보유하고 있는 values 를 획들 할 수 있습니다.
+- 조회시에는 `members(key)` 를 통해서 보유하고 있는 values 를 획득 할 수 있습니다.
 
 ```console
 $ 127.0.0.1:6379> smembers setKey
