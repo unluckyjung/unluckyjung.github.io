@@ -134,7 +134,7 @@ sudo adduser
 ## backup 폴더를 만들고 권한을 변경해 줍니다.
 
 * 폴더 생성 `mkdir`
-* 권한 병경 `chmod`
+* 권한 변경 `chmod`
 
 ![이미지](https://user-images.githubusercontent.com/43930419/88630195-c44d5000-d09f-11ea-94df-b6de00d8651c.png)
 
@@ -142,11 +142,13 @@ sudo adduser
 
 ```shell
 mkdir backup
-chmod 764
+chmod 764 backup/
 ```
 
 ### 764가 의미하는바
-> `r` 실행, `w` 쓰기, `x` 실행
+> `r` 실행, `w` 쓰기, `x` 실행  
+> 소유자에게 모든 권한을 주고, 그룹내에는 읽기 쓰기 권한, 그 외에는 읽기 권한만 부여
+
 
 ![이미지](https://user-images.githubusercontent.com/43930419/88630198-c4e5e680-d09f-11ea-992c-93031ae94c20.png)
 
