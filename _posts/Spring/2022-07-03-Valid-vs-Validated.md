@@ -56,7 +56,7 @@ class MemberController(
 - Validation관련 어노테이션(ex `@NotBlank`)이 붙은 필드값들을 전부 검사해줍니다.
 - 위의 예시에서는 name이 `@NotBlank`인지, age가 `@PositiveOrZero` 인지를 전부 체크해줍니다.
 - 컨트롤러 레이어에서 `@RequestBody` 근처에 붙으면 **Argument Resolver** 단에서 처리가 됩니다.
-- 이때 `MethodArgumentNotValidException` 이 발생하고, `DefaultHandlerExceptionResolver` 에서 처리되어 **404** 응답으로 처리합니다.
+- 이때 `MethodArgumentNotValidException` 이 발생하고, `DefaultHandlerExceptionResolver` 에서 처리되어 **4xx** 응답으로 처리합니다.
 
 
 ---
@@ -109,7 +109,7 @@ data class MemberTestDto(
 ```kotlin
 @GetMapping("validated-get-controller")
 fun getMemberInfoValidated(
-    // 그룹화 된부분 검사 -> 400 에러
+    // 그룹화 된부분 검사 -> 4xx 에러
     @Validated(MemberValidationGroup.AgeCheck::class)
     @RequestBody memberReq: MemberTestDto
 ): String {
@@ -118,7 +118,7 @@ fun getMemberInfoValidated(
 ```
 
 - 컨트롤러단에서 `@Validated(마커인터페이스)` 를 정해주면 `MemberTestDto` 중 **마커인터페이스에 해당하는 부분** 만 validation이 진행됩니다. 예시의 경우에는 age 부분만 유효성 검증을 진행합니다.
-- 이때 역시 **Argument Resolver** 단에서 처리가 되어 **404** 응답을 내게 됩니다.
+- 이때 역시 **Argument Resolver** 단에서 처리가 되어 **4xx** 응답을 내게 됩니다. (`MethodArgumentnotValidException` 발생)
 - 이 방법을 통해 하나의 dto 내에서, 전체 필드가 아닌 일부 필드만 검증할 수 있게 설정할 수 있습니다.
 
 
@@ -188,7 +188,7 @@ class MemberController {
 - 이것이 가능한 이유는 `@Validated` 를 클래스단에 붙여주면, AOP 포인터컷으로 `MethodValidationInterceptor` 가 등록되어 해당 메소드를 수행할때 유효성 검증작업이 이루어지게 됩니다.
 - 이때는 Argument Resolver 단에서 처리되는것이 아닌 **MethodValidationInterceptor** 에서 처리되어 **500번 응답**이 발생하고, 다른 예외값인 `ConstraintViolationException` 이 발생하게 됩니다.
 
-> 참고로 컨트롤러 레이어의 클래스단에 `@Validated`를 붙여도, `@Valid` 사용예시는 그대로 **Argument Resolver**에서 처리되어 404 응답을 되돌려줍니다.
+> 참고로 컨트롤러 레이어의 클래스단에 `@Validated`를 붙여도, `@Valid` 사용예시는 그대로 **Argument Resolver**에서 처리되어 4xx 응답을 되돌려줍니다. 즉 `MethodArgumentnotValidException` 이 발생하게됩니다.
 
 
 ### 2.1 혼합해서 사용하는 경우
@@ -204,7 +204,8 @@ fun getMemberInfoValidatedParam2(
 }
 ```
 
-- `@Valid` 도 통과하지 못하고, `@Min` 도 통과하지 못하는 요청이 오는경우, `@Valid` 가 먼저 체크되어 `MethodArgumentnotValidException`이 발생합니다.
+- `@Valid` 통과하지 못하고, `@Min` 도 통과하지 못하는 요청이 오는경우
+- `@Valid` 가 먼저 체크되어 `MethodArgumentnotValidException`이 발생합니다.
 - 만약 `@Valid`는 통과하고, `@Min` 에서 걸리는 경우에는 `ConstraintViolationException` 가 발생합니다.
 
 
@@ -243,12 +244,30 @@ class MemberService {
 
 ---
 
+## [추가 내용] @RequestBody 의 경우에는 항상 MethodArgumentnotValidException 이 발생한다.
+
+```kotlin
+@GetMapping("validated-get-controller")
+fun getMemberInfoValidated(
+    @Validated @RequestBody memberReq: MemberTestDto
+): String {
+    ...
+}
+```
+
+> You can use @RequestBody in combination with jakarta.validation.Valid or Spring’s @Validated annotation, both of which cause Standard Bean Validation to be applied. By default, validation errors cause a MethodArgumentNotValidException, which is turned into a 400 (BAD_REQUEST) response. Alternatively, you can handle validation errors locally within the controller through an Errors or BindingResult argument, as the following example shows:
+
+- [공식 문서](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/requestbody.html#page-title)에 따르면 파라메터에 `@RequestBody` 를 사용하면서 `@Validated` 검증하는 경우에도 validation 에러는 동일하게 `MethodArgumentNotValidException` 이 발생합니다.
+
+---
+
 ## Conclusion
+
 ### @Valid
 - JSR 지원 스펙이다.
 - 컨트롤러 파라메터에서 사용시, 리졸버 단계에서 유효성 검사가 진행된다.
 - 발생되는 예외는 `MethodArgumentnotValidException` 이다.
-- **404 응답** 을 내보낸다.
+- **4xx 응답** 을 내보낸다.
 
 
 ### @Validated
@@ -257,12 +276,13 @@ class MemberService {
 - 빈으로 등록되어있는 클래스에 붙을수 있고, 이를통해 레이어 구분없이 검증(`@Valid`)기능을 동작하게 할 수 있다.
 - 컨트롤러에서, `RequestParam` 이나 `PathVariable`를 검증하고 싶을때 사용할 수 있다.
 - AOP를 이용해 인터셉터가 등록되어 처리되어진다.(그룹핑의 용도 제외)
-- 발생되는 예외는 `ConstraintViolationException` 이다.
-- **500 응답** 을 내보낸다.
+- 서비스 레이어 단에서 발생하는 예외는 `ConstraintViolationException` 이다. **5xx 응답** 을 내보낸다.
+- 컨트롤러단의 Parameter `@RequestBody` 에서 발생하는 예외는 `MethodArgumentnotValidException` 이다. **4xx 응답** 을 내보낸다.
 
 ---
 
 ## Reference
+- https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/requestbody.html#page-title
 - https://www.baeldung.com/spring-valid-vs-validated
 - https://www.baeldung.com/spring-validate-requestparam-pathvariable
 - https://www.baeldung.com/javax-validation-groups
