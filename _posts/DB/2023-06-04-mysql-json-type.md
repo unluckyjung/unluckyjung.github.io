@@ -26,7 +26,7 @@ tags:
 ## 조회
 
 ```sql
-SELECT JSON_EXTRACT(json_body, '$.name')
+SELECT JSON_EXTRACT(json_column_name, '$.name')
    FROM table_name
 ```
 
@@ -34,9 +34,9 @@ SELECT JSON_EXTRACT(json_body, '$.name')
 
 
 ```sql
-SELECT JSON_EXTRACT(json_body, "$.name"), JSON_EXTRACT(json_body, "$.age")
+SELECT JSON_EXTRACT(json_column_name, "$.name"), JSON_EXTRACT(json_column_name, "$.age")
 FROM table_name
-WHERE JSON_EXTRACT(json_body, "$.age") > 1
+WHERE JSON_EXTRACT(json_column_name, "$.age") > 1
 ORDER BY JSON_EXTRACT(c, "$.name");
 ```
 
@@ -46,27 +46,42 @@ ORDER BY JSON_EXTRACT(c, "$.name");
 
 ## 수정
 
+### JSON_SET
+> `JSON_SET` 을 이용해서 값을 변경해 주거나 추가해줄 수 있습니다.
+
 ```sql
 update table_name
-set json_cloumn
-        = JSON_SET(column_name, '$.name', 'abcd, '$.age', 13)
+set json_column_name = JSON_SET(json_column_name, '$.name', 'abcd, '$.age', 13)
 where id = 1;
 ```
-
-- `JSON_SET` 을 이용해서 값을 변경해줄 수 있습니다.
 - name 을 abcd, age 를 13으로 변경하고 싶은경우 위와 같은 쿼리로 처리할 수 있습니다.
+
 - 이 밖에도 Insert, Replace 함수가 존재하는데 옵선들은 아래와 같습니다.
 - [JSON_SET()](https://dev.mysql.com/doc/refman/5.7/en/json-modification-functions.html#function_json-set) replaces existing values and adds nonexisting values.
 - [JSON_INSERT()](https://dev.mysql.com/doc/refman/5.7/en/json-modification-functions.html#function_json-insert) inserts values without replacing existing values.
 - [JSON_REPLACE()](https://dev.mysql.com/doc/refman/5.7/en/json-modification-functions.html#function_json-replace) replaces only existing values.
+
+---
+
+### JSON_INSERT 
+> 조회, 수정을 이용한 응용
+
+```sql
+update table_name
+set json_column_name = JSON_INSERT(json_column_name, '$.NEW', JSON_EXTRACT(json_column_name, '$.OLD')),
+    json_column_name = JSON_REMOVE(json_column_name, '$.OLD')
+where id = 1;
+```
+
+- `OLD` 라는 key 값을 가지고 있던 데이터를 위와같은 쿼리로 키값을 `NEW` 로 바꿀 수 있습니다.
 
 
 ### 디폴트값 설정해주기
 > 5.8 이상버전
 
 ```sql
-ALTER TABLE table_name ADD COLUMN column_name JSON NOT NULL DEFAULT ('{}') ;
-ALTER TABLE table_name ADD COLUMN column_name JSON NOT NULL DEFAULT (JSON_OBJECT()) ;
+ALTER TABLE table_name ADD COLUMN json_column_name JSON NOT NULL DEFAULT ('{}') ;
+ALTER TABLE table_name ADD COLUMN json_column_name JSON NOT NULL DEFAULT (JSON_OBJECT()) ;
 ```
 
 - null 로 저장되는 경우, 디폴트값을 가지도록 `mysql 5.8` 이상버전부터는 설정해줄 수 있습니다.
@@ -77,9 +92,9 @@ ALTER TABLE table_name ADD COLUMN column_name JSON NOT NULL DEFAULT (JSON_OBJECT
 - 하지만 [docs](https://dev.mysql.com/doc/refman/5.7/en/json.html) 에 따르면, 5.7 버전에서는 default 설정이 불가능 합니다.
 
 ```kotlin
-ALTER TABLE table_name ADD column_name values JSON
-UPDATE table_name SET column_name = JSON_OBJECT() WHERE 1 = 1
-ALTER TABLE table_name JSON NOT NULL
+ALTER TABLE table_name ADD json_column_name values JSON
+UPDATE table_name SET json_column_name = JSON_OBJECT() WHERE 1 = 1
+ALTER TABLE json_column_name JSON NOT NULL
 ```
 
 - 만약 json 컬럼이 추가된뒤에 마이그레이션이 필요하다면, 위와같은 쿼리를 넣어서 기존 존재하는 컬럼들에게 `('{}')` 를 넣어줄 수 있습니다.
