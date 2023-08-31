@@ -67,10 +67,10 @@ where id = 1;
 > 조회, 수정을 이용한 응용
 
 ```sql
-update table_name
-set json_column_name = JSON_INSERT(json_column_name, '$.NEW', JSON_EXTRACT(json_column_name, '$.OLD')),
+UPDATE table_name
+SET json_column_name = JSON_INSERT(json_column_name, '$.NEW', JSON_EXTRACT(json_column_name, '$.OLD')),
     json_column_name = JSON_REMOVE(json_column_name, '$.OLD')
-where id = 1;
+WHERE id = 1;
 ```
 
 - `OLD` 라는 key 값을 가지고 있던 데이터를 위와같은 쿼리로 키값을 `NEW` 로 바꿀 수 있습니다.
@@ -98,6 +98,22 @@ ALTER TABLE json_column_name JSON NOT NULL
 ```
 
 - 만약 json 컬럼이 추가된뒤에 마이그레이션이 필요하다면, 위와같은 쿼리를 넣어서 기존 존재하는 컬럼들에게 `('{}')` 를 넣어줄 수 있습니다.
+
+---
+
+## Json 안에 Json 이 있는 형태의 경우
+
+```sql
+-- 조회
+SELECT JSON_EXTRACT(json_column_name, '$inner_json.name')
+
+-- 수정
+UPDATE table_name
+SET json_column_name = JSON_SET(json_column_name, '$inner_json.name', 'goodall'),
+WHERE id = 1;
+```
+
+- `.` 을 이용해서 접근 및 수정도 가능합니다.
 
 ---
 
