@@ -245,11 +245,10 @@ public class Main {
 ### kotlin
 
 ```kotlin
-val list = LinkedList<Int>().apply {
-    addAll(mutableListOf(10, 20, 30))
-}
+val list = LinkedList(listOf(10, 20, 30))
 
 val iter = list.iterator()
+
 while (iter.hasNext()) {
     print("${iter.next()},")   // 10,20,30
 }
@@ -297,9 +296,51 @@ println()
 
 - 기본적으로 `list.iterator()` 를 통해서 이터레이터를 얻을 수 있습니다.
 - list 의 경우 `listIterator()` 를 이용하면, `next()`, `previous()` 를 이용해서 이러레이터를 앞뒤로 이동할 수 있습니다.
+- 다만 더이상 이동할 위치가 없는경우 예외가 발생하므로, `listIter.hasNext()`, `listIter.hasNext()` 를 이용해서 확인후 함수 호출을 권장합니다.
+
+
+### Kotlin 에서의 iterator 를 이용한 삽입 삭제
+
+```kotlin
+private fun listMutableIterator() {
+    val list = LinkedList<Int>().apply {
+        addAll(mutableListOf(10, 20, 30, 40, 50))
+    }
+
+    val iter = list.listIterator()  // [^,10,20,30,40,50]
+
+    println(iter.next()) // 10, [10,^,20,30,40,50]
+    iter.remove()   // remove 는 iterator 가 마지막으로 반환한 얘를 지운다. 즉, next, previous 호출전에 remove 호출시 에러발생
+    println(list)   // [^,20,30,40,50]
+
+    iter.next() // [20,^,30,40,50]
+    iter.next() // [20,30,^,40,50]
+
+    iter.add(35)  // [20,30,35,^,40,50]
+    println(list)
+    println(iter.previous()) // 35 [20,30,^,35,40,50]
+    iter.remove() // [20,30,^,40,50]
+    println(list)
+
+    iter.previous() // [20,^,30,40,50]
+    iter.previous() // [^,20,30,40,50]
+    iter.remove()
+    println(list) // [^,30,40,50]
+
+    iter.next() // [30,^,40,50]
+    iter.next() // [30,40,^,50]
+    iter.remove()
+    println(list) // [30,50]
+}
+```
+
+- **remove()** 의 경우 `next()`, `previous()` 를 호출했을때, 리턴된 원소를 삭제합니다.
+- **add()** 의 경우 삽입후 삽입한 원소의 뒤로 이동하게 됩니다.
 
 ---
 
 ## Reference
 - [Stack](https://docs.oracle.com/javase/8/docs/api/java/util/Stack.html)
 - [LinkedList](https://docs.oracle.com/javase/8/docs/api/java/util/LinkedList.html)
+- https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list-iterator/
+- https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-iterator/
