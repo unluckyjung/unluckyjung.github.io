@@ -167,7 +167,24 @@ println(dq.last)    // 30
 
 dq.removeFirst() // [20,30]
 println(dq.first)   // 20
+
+
+// ArrayDeque
+
+val dq = ArrayDeque<Int>()
+dq.add(20) // [20]
+dq.addFirst(10) // [10,20]
+dq.addLast(30) // [10,20,30]
+
+println(dq.first())   // 10
+println(dq.last())    // 30
+
+dq.removeFirst() // [20,30]
+println(dq.first())   // 20
 ```
+
+- 링크드 리스트, 배열기반의 차이가 있어 성능상의 차이가 존재한다.
+- 추가적으로 함수 호출방식도 조금 다르다.
 
 ---
 
