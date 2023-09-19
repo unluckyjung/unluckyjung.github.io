@@ -48,7 +48,7 @@ class DomainEventPublisher private constructor(
 
 
 ### 퍼블리셔 호출부분
-> 트랜잭션 안에 있어야합니다.
+> 트랜잭션 안에서 퍼블리셔를 호출해야 합니다.
 
 ```kotlin
 @Transactional
@@ -69,7 +69,7 @@ class MemberSave(
 }
 ```
 
-- 반드시 **트랜잭션안에서**, 이벤트를 발생시켜 줍니다.
+- 반드시 **트랜잭션 안에서**, 이벤트를 발생시켜 줍니다.
 
 ### 이벤트 처리부분
 
@@ -84,8 +84,8 @@ data class MemberSaveEvent(
 class MemberSaveEventHandler(
     private val memberRepository: MemberRepository,
 ) {
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)  // 앞 작업에서의 커밋이 종료된뒤 처리
-    @Transactional(propagation = Propagation.REQUIRES_NEW)  // 앞에서 트랜잭션이 완료되어 버렸기 떄문에, 여기서 변경작업을 하려면 새로운 트랜잭션을 열어야함.
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)  // 루트 트랜잭션이 종료(커밋) 된후 수행하도록 설정
+    @Transactional(propagation = Propagation.REQUIRES_NEW)  // 앞에서 트랜잭션이 완료되어 버렸기 떄문에, 여기서 변경작업을 하려면 새로운 트랜잭션을 열어야 함.
     fun onSave(memberSaveEvent: MemberSaveEvent) {
 
         memberRepository.findByIdOrThrow(memberSaveEvent.memberId).run {
@@ -95,17 +95,19 @@ class MemberSaveEventHandler(
 }
 ```
 
-- 앞의 작업이 끝난뒤에 작업이 수행될수 있도록 `@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)` 를 설정 해줍니다.
-- 어느 핸들러가 호출될지는 `Argument` 의 타입에 따라 결정되게 됩니다. 여기서는 `MemberSaveEvent` 를 받고 있으므로, 해당 `MemberSaveEvent` 객체가 퍼블리싱 되었을때 앞의 트랜잭션이 종료된후 핸들러가 수행되게 됩니다.
+- 앞의 트랜잭션이 커밋된 이후, 핸들러가 호출될 수 있도록 `@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)` 를 붙여줍니다.
+- 어느 핸들러가 호출될지는 `Argument` 의 타입에 따라 결정되게 됩니다. 
+- 여기서는 `MemberSaveEvent` 를 받고 있으므로, 해당 `MemberSaveEvent` 객체가 퍼블리싱 되었을때 앞의 트랜잭션이 종료된후 핸들러가 수행되게 됩니다.
 - 중요한것은 `MemberSave` 에서 진행되고 있던 트랜잭션이 종료되고, 해당 `onSave()` 함수가 호출되므로, **트랜잭션이 없는 상태** 이므로 새롭게 트랜재션을 열어주어야합니다.
 - 또한 같은 스레드인 경우, `REQUIRES_NEW` 를 사용해주어야 DB 커넥션이 분리되기 때문에 `REQUIRES_NEW` 를 전파레벨로 잡아주어야합니다.
 
 ### REQUIREDS_NEWS 를 써야하는 이유
 > 스레드 분리가 되지 않는상황에선, 데이터소스 분리가 되지않습니다.
 
-- 이로인해 `@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)` 를 이용해서 루트 트랜잭션 종료 처리 후, 이벤트를 잡은뒤 **같은 스레드**에서 트랜잭션을 새로 열어 작업을 처리해주고 싶다면, 반드시 `Propagation.REQUIRES_NEW` 를 사용해주어야합니다.
-- 만약 Propagation 을 NEW 로 잡고 싶지 않다면, 이벤트 처리부분부터는 다른 스레드에서 동작을 하도록 코드를 작성해야 합니다.
-- 왜냐하면 앞의 트랜잭션이 끝났어도, 새로운 트랜잭션을 명시적으로 생성해주거나 스레드 분리를 하지 않는경우, 데이터 소스가 분리가 되지 않아 이벤트 처리부분에서의 기능이 올바르게 동작하지 않기 떄문입니다.
+- 이로인해 `@TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)` 를 이용해서 루트 트랜잭션 종료 처리 후
+- 이벤트를 잡은뒤 **같은 스레드**에서 트랜잭션을 새로 열어 작업을 처리해주고 싶다면, **반드시** `Propagation.REQUIRES_NEW` 를 사용해주어야합니다.
+- 만약 Propagation 을 NEW 로 잡고 싶지 않다면, 이벤트 처리를 하는 로직부터 `MemberSaveEventHandler.onSave` 는 다른 스레드에서 동작을 하도록 코드를 작성해야 합니다.
+- 왜냐하면 앞의 트랜잭션이 끝났어도, 새로운 트랜잭션을 명시적으로 생성해주거나 스레드 분리를 하지 않는경우 데이터 소스가 분리가 되지 않아 이벤트 처리부분에서의 기능이 올바르게 동작하지 않기 떄문입니다.
 
 > 저의 경우에는 항상 `REQUIRES_NEW` 로 처리해주고 있긴합니다. 이유는 스레드를 분리시킬시 트랜잭션 데이터소스 문제는 같이 해결되지만, 트랜잭션 분리로 데이터 소스 분리와, 스레드 분리는 좀 별개의 상황이라고 보기 때문입니다. (목적이 불분명할때 스레드 분리로 해결되는것은 얻어걸리는 거라고 생각합니다. 나중에 이걸모르고있다가 동기로직으로 바꾸는데 NEW를 달지 않으면 바로 장애가 나겠죠)
 
