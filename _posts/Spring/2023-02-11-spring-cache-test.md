@@ -215,6 +215,24 @@ class CacheTest(
 - test2 가 돌아가는 시점에서, test1 의 캐싱 결과가 남아있어 올바른 테스트가 진행되지 않은것을 확인 할 수 있습니다.
 - 이런 상황에서는 테스트별로 key 값을 다르게 가져가거나, 캐싱 TTL 을 테스트내에서 조절하는 방법을 사용해야 합니다.
 
+### [참고] 레디스 캐시 비우기
+
+```kotlin
+@BeforeEach
+internal fun setUp() {
+    flushRedis()
+}
+
+@AfterEach
+internal fun tearDown() {
+    redisTemplate.connectionFactory?.connection?.flushAll()
+}
+
+private fun flushRedis() {
+    redisTemplate.connectionFactory?.connection?.flushAll()
+}
+```
+
 ---
 
 ## Conclusion
