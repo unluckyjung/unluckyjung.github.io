@@ -1,5 +1,5 @@
 ---
-title: Spring transactional propagtaion level 에 따른 Rollback 범위 주의
+title: Spring transactional propagation level 에 따른 Rollback 범위 주의
 date: 2023-07-29-16:30
 categories:
 - Spring
