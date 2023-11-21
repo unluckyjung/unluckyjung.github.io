@@ -280,6 +280,12 @@ fun stringRedisDeleteWaitTest() {
 
 ## Value 가 Object 형태일때
 
+- `2023-11-21 추가`
+
+> 아래에서 설정하는 방법은 객체별로 필요한 RedisTemplate 를 매번 새롭게 만들어줘야하고, pakage 경로가 같이 Redis 에 저장된다는 이슈가 있어 추천하지 않습니다.
+> Object 를 Redis 에 넣고, 조회하는 다른방법은 다른글에서 추가적으로 작성한뒤 링크를 걸어둘 예정입니다.
+> 간략하게 텍스트로 미리 설명하자면, Serializer 는 전부 `StringRedisSerializer()` 를 사용한뒤, Object 를 String 형태의 Json 으로 전부 변환한 형태로 만든뒤 Redis 에 저장하는 방법입니다. 
+
 
 ### 설정
 
@@ -336,6 +342,8 @@ data class RedisObject(
 - 또 다른 방법으로는 디폴트값을 명시적으로 넣어준다면, 자동적으로 디폴트 생성자가 생성되어 위와같은 에러가 발생하지 않게 됩니다.
 
 > 기본적으로 SpringBoot 설정에 들어가있는 `jackson-module-kotlin` 이 존재한다면, spring jackson 에서 사용하는 리플랙션을 위해 자동으로 디폴트 생성자 처리를 해주게되는데, redisTemplate 설정에서는 자동으로 설정이 되지 않아서 이런문제가 발생하게 됩니다. 관련된 글은 [이곳](https://unluckyjung.github.io/kotlin/spring/2022/09/10/kotlin-pretendtoknow/#%EC%9E%AD%EC%8A%A8-%EC%BD%94%ED%8B%80%EB%A6%B0-%EB%AA%A8%EB%93%88)을 참고하시면 되시겠습니다.
+
+
 
 
 ### 삽입, 조회
