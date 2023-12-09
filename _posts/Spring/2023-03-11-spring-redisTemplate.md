@@ -280,11 +280,8 @@ fun stringRedisDeleteWaitTest() {
 
 ## Value 가 Object 형태일때
 
-- `2023-11-21 추가`
-
 > 아래에서 설정하는 방법은 객체별로 필요한 RedisTemplate 를 매번 새롭게 만들어줘야하고, pakage 경로가 같이 Redis 에 저장된다는 이슈가 있어 추천하지 않습니다.
-> Object 를 Redis 에 넣고, 조회하는 다른방법은 다른글에서 추가적으로 작성한뒤 링크를 걸어둘 예정입니다.
-> 간략하게 텍스트로 미리 설명하자면, Serializer 는 전부 `StringRedisSerializer()` 를 사용한뒤, Object 를 String 형태의 Json 으로 전부 변환한 형태로 만든뒤 Redis 에 저장하는 방법입니다. 
+> 객체 형태로 저장이 필요한경우에는 아래 내용보다, [해당 포스팅](https://unluckyjung.github.io/spring/2023/11/26/redis-template-wrapping/) 에 기재된 방법을 사용하시는걸 권장드립니다.
 
 
 ### 설정
@@ -370,6 +367,8 @@ fun stringCacheObjectTest() {
 $ 127.0.0.1:6379> get string-object-key
 "{\"name\":\"yoonsung\",\"age\":30}"
 ```
+
+---
 
 ## 삭제
 
@@ -531,3 +530,4 @@ $ flushall
 - https://redis.io/commands/
 - https://bcp0109.tistory.com/328
 - https://dev-monkey-dugi.tistory.com/150
+- https://unluckyjung.github.io/spring/2023/11/26/redis-template-wrapping/
